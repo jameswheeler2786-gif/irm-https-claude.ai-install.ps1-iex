@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Get Started — Outly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/index.html" class="logo">
+    <img src="/assets/logos/logo-light.svg" width="44" height="44" alt="Outly logo">
+    <div class="logo-wordmark">
+      <span class="logo-text">Outly</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/index.html#solution">About</a></li>
+    <li><a href="/index.html#value">Why Outly</a></li>
+    <li><a href="/index.html#whoforsec">Who it's for</a></li>
+    <li><a href="/index.html#howsec">Getting started</a></li>
+    <li><a href="/index.html#ctasec" class="nav-cta">Sign In</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE -->
+<main class="signup-page">
+  <div class="signup-wrap">
+
+    <span class="eyebrow">Join Outly</span>
+    <h1 class="signup-page-title">Let's get you <em>started</em></h1>
+    <p class="signup-page-sub">Are you joining as a host or an attendee?</p>
+
+    <!-- TYPE PICKER -->
+    <div class="type-picker" role="group" aria-label="Account type">
+      <div class="type-card" id="pick-host" role="button" tabindex="0" aria-pressed="false">
+        <div class="type-card-icon" aria-hidden="true">🎪</div>
+        <h3>I'm a Host</h3>
+        <p>I run events and want to grow my audience and revenue</p>
+      </div>
+      <div class="type-card" id="pick-attendee" role="button" tabindex="0" aria-pressed="false">
+        <div class="type-card-icon" aria-hidden="true">🙋</div>
+        <h3>I'm an Attendee</h3>
+        <p>I want to discover events and meet people</p>
+      </div>
+    </div>
+
+    <!-- ATTENDEE: app download prompt -->
+    <div class="attendee-cta" id="attendee-cta" aria-live="polite">
+      <div class="type-card-icon" aria-hidden="true">📱</div>
+      <h3>Get the Outly app</h3>
+      <p>Discover events, match with compatible people going, and connect before you even walk in the door.</p>
+      <div class="app-badges">
+        <a href="#" class="app-badge" aria-label="Download on the App Store">
+          <span aria-hidden="true" style="font-size:22px;">🍎</span>
+          <div>
+            <span class="app-badge-text-small">Download on the</span>
+            <span class="app-badge-text-big">App Store</span>
+          </div>
+        </a>
+        <a href="#" class="app-badge" aria-label="Get it on Google Play">
+          <span aria-hidden="true" style="font-size:22px;">▶️</span>
+          <div>
+            <span class="app-badge-text-small">Get it on</span>
+            <span class="app-badge-text-big">Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- HOST FORM -->
+    <div class="signup-form-shell" id="host-form-shell" aria-live="polite">
+      <form id="host-form" novalidate>
+
+        <!-- PART A: Contact Details -->
+        <div class="form-part">
+          <div class="form-part-heading">
+            <span class="form-part-label">Part A</span>
+            <div>
+              <div class="form-part-title">Contact Details</div>
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="full-name">Full Name<span class="req">*</span></label>
+              <input type="text" id="full-name" name="fullName" autocomplete="name" placeholder="Jane Smith" required>
+              <span class="field-error" id="err-full-name">Please enter your full name</span>
+            </div>
+            <div class="field">
+              <label for="email">Email<span class="req">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="jane@example.com" required>
+              <span class="field-error" id="err-email">Please enter a valid email</span>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number<span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+44 7700 000000" required>
+              <span class="field-error" id="err-phone">Please enter your phone number</span>
+            </div>
+            <div class="field">
+              <label for="dob">Date of Birth<span class="req">*</span></label>
+              <input type="date" id="dob" name="dob" autocomplete="bday" required>
+              <span class="field-error" id="err-dob">Please enter your date of birth</span>
+            </div>
+            <div class="field field-full">
+              <label for="city">City<span class="req">*</span></label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="London" required>
+              <span class="field-error" id="err-city">Please enter your city</span>
+            </div>
+          </div>
+
+          <!-- Socials -->
+          <div class="form-part-heading" style="margin-top:24px;">
+            <span class="form-part-note">Socials <span style="font-size:11px;color:var(--cool-grey);">(optional)</span></span>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="instagram">Instagram<span class="opt">optional</span></label>
+              <div class="social-field">
+                <span class="social-prefix" aria-hidden="true">@</span>
+                <input type="text" id="instagram" name="instagram" placeholder="yourhandle" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="tiktok">TikTok<span class="opt">optional</span></label>
+              <div class="social-field">
+                <span class="social-prefix" aria-hidden="true">@</span>
+                <input type="text" id="tiktok" name="tiktok" placeholder="yourhandle" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="linkedin">LinkedIn<span class="opt">optional</span></label>
+              <div class="social-field">
+                <span class="social-prefix" aria-hidden="true">linkedin.com/in/</span>
+                <input type="text" id="linkedin" name="linkedin" placeholder="yourprofile" autocomplete="off">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PART B: Business Details -->
+        <div class="form-part">
+          <div class="form-part-heading">
+            <span class="form-part-label">Part B</span>
+            <div>
+              <div class="form-part-title">Business Details</div>
+              <div class="form-part-note">If applicable — leave blank if you're an individual</div>
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field field-full">
+              <label for="biz-name">Business Name<span class="opt">optional</span></label>
+              <input type="text" id="biz-name" name="businessName" autocomplete="organization" placeholder="Acme Events Ltd">
+            </div>
+            <div class="field field-full">
+              <label for="biz-country">Country<span class="opt">optional</span></label>
+              <select id="biz-country" name="businessCountry" autocomplete="country">
+                <option value="">Select country…</option>
+                <option value="GB">United Kingdom</option>
+                <option value="US">United States</option>
+                <option value="AU">Australia</option>
+                <option value="CA">Canada</option>
+                <option value="IE">Ireland</option>
+                <option value="NZ">New Zealand</option>
+                <option value="ZA">South Africa</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="field field-full">
+              <label for="biz-addr1">Address Line 1<span class="opt">optional</span></label>
+              <input type="text" id="biz-addr1" name="businessAddr1" autocomplete="address-line1" placeholder="123 Example Street">
+            </div>
+            <div class="field field-full">
+              <label for="biz-addr2">Address Line 2<span class="opt">optional</span></label>
+              <input type="text" id="biz-addr2" name="businessAddr2" autocomplete="address-line2" placeholder="Floor 2, Suite 4">
+            </div>
+            <div class="field">
+              <label for="biz-city">City<span class="opt">optional</span></label>
+              <input type="text" id="biz-city" name="businessCity" autocomplete="address-level2" placeholder="London">
+            </div>
+            <div class="field">
+              <label for="biz-zip">ZIP / Postcode<span class="opt">optional</span></label>
+              <input type="text" id="biz-zip" name="businessZip" autocomplete="postal-code" placeholder="EC1A 1BB">
+            </div>
+          </div>
+        </div>
+
+        <!-- PART C: Role -->
+        <div class="form-part">
+          <div class="form-part-heading">
+            <span class="form-part-label">Part C</span>
+            <div>
+              <div class="form-part-title">What best describes you?<span class="req" style="margin-left:4px;">*</span></div>
+            </div>
+          </div>
+
+          <div class="role-grid" role="radiogroup" aria-label="Role type">
+            <div>
+              <input type="radio" class="role-option" id="role-organiser" name="role" value="event_organiser">
+              <label class="role-label" for="role-organiser"><span aria-hidden="true">🎪</span>Event Organiser</label>
+            </div>
+            <div>
+              <input type="radio" class="role-option" id="role-influencer" name="role" value="influencer">
+              <label class="role-label" for="role-influencer"><span aria-hidden="true">🎤</span>Influencer</label>
+            </div>
+            <div>
+              <input type="radio" class="role-option" id="role-venue" name="role" value="venue">
+              <label class="role-label" for="role-venue"><span aria-hidden="true">🏙️</span>Venue</label>
+            </div>
+            <div>
+              <input type="radio" class="role-option" id="role-matchmaker" name="role" value="matchmaker">
+              <label class="role-label" for="role-matchmaker"><span aria-hidden="true">🤝</span>Matchmaker</label>
+            </div>
+            <div>
+              <input type="radio" class="role-option" id="role-other" name="role" value="other">
+              <label class="role-label" for="role-other"><span aria-hidden="true">✳️</span>Other</label>
+            </div>
+          </div>
+          <span class="field-error" id="err-role">Please select a role</span>
+
+          <div class="role-other field" id="role-other-field">
+            <label for="role-other-text">Please describe<span class="req">*</span></label>
+            <input type="text" id="role-other-text" name="roleOther" placeholder="Tell us what you do">
+            <span class="field-error" id="err-role-other">Please describe your role</span>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="form-submit-area">
+          <button type="submit" class="btn-primary">
+            Apply to host
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <p class="form-submit-note">
+            By applying you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.<br>
+            We'll be in touch within 2 business days.
+          </p>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS STATE -->
+      <div class="signup-success" id="signup-success" aria-live="assertive">
+        <div class="success-icon" aria-hidden="true">🎉</div>
+        <h2>Application received!</h2>
+        <p>Thanks for applying to host on Outly. We'll review your details and be in touch within 2 business days.</p>
+        <a href="/index.html" class="btn-primary">Back to home</a>
+      </div>
+
+    </div>
+    <!-- /host-form-shell -->
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-left">
+    <a href="/index.html" class="ft-logo">
+      <img src="/assets/logos/logo-dark.svg" width="32" height="32" alt="Outly logo">
+      <span class="ft-logo-text">Outly</span>
+    </a>
+    <span class="ft-tag">Less swiping. More Outly.</span>
+    <span class="ft-copy">© 2025 Outly. All rights reserved.</span>
+  </div>
+  <ul class="ft-links">
+    <li><a href="/index.html#solution">Why Outly</a></li>
+    <li><a href="/index.html#whoforsec">Who it's for</a></li>
+    <li><a href="/index.html#faqsec">FAQ</a></li>
+    <li><a href="mailto:hello@outly.co">Contact</a></li>
+  </ul>
+</footer>
+
+<script src="/js/signup.js"></script>
+</body>
+</html>
