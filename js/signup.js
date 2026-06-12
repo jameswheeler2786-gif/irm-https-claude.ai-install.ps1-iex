@@ -89,6 +89,17 @@
     showError('city', 'err-city', !city);
     if (!city) ok = false;
 
+    const idConfirm = document.getElementById('id-confirm');
+    const idErr     = document.getElementById('err-id-confirm');
+    if (!idConfirm.checked) {
+      idConfirm.classList.add('error');
+      idErr.classList.add('show');
+      ok = false;
+    } else {
+      idConfirm.classList.remove('error');
+      idErr.classList.remove('show');
+    }
+
     const roleSelected = document.querySelector('input[name="role"]:checked');
     const roleErr = document.getElementById('err-role');
     if (!roleSelected) {
@@ -134,6 +145,7 @@
       businessZip:   document.getElementById('biz-zip').value.trim() || null,
       role:          roleEl ? roleEl.value : null,
       roleOther:     document.getElementById('role-other-text').value.trim() || null,
+      idVerifyConsent: document.getElementById('id-confirm').checked,
     };
 
     try {

@@ -232,7 +232,25 @@
           </div>
         </div>
 
-        <!-- SUBMIT -->
+        <!-- SAFETY & SUBMIT -->
+        <div class="form-part">
+          <div class="form-part-heading">
+            <span class="form-part-label">Safety</span>
+            <div><div class="form-part-title">Identity &amp; platform safety</div></div>
+          </div>
+          <div class="safety-check">
+            <label class="check-label" for="id-confirm">
+              <input type="checkbox" id="id-confirm" name="idConfirm" required>
+              <span class="check-box" aria-hidden="true"></span>
+              <span class="check-text">
+                I confirm I am over 18 and agree to verify my identity when requested as part of host onboarding.
+                Identity verification is handled securely by our payments partner.
+              </span>
+            </label>
+            <span class="field-error" id="err-id-confirm">Please confirm you are over 18 and agree to identity verification</span>
+          </div>
+        </div>
+
         <div class="form-submit-area">
           <button type="submit" class="btn-primary">
             Apply to host
