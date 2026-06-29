@@ -25,7 +25,7 @@ nothing else needs to change.
 - If your official export is a **full wordmark lockup** (mark + "Outly"
   together), set the image to the full lockup and delete the adjacent
   `<span class="logo-text">Outly</span>` / `<span class="ft-logo-text">Outly</span>`.
-- Brand strapline in use: **Discover. Connect. Experience.**
+- Brand strapline in use: **Less swiping. More Outly.**
 
 ## Current placeholder
 

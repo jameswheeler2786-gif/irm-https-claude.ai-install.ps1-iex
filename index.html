@@ -12,8 +12,7 @@
       Referrer-Policy: strict-origin-when-cross-origin
       Permissions-Policy: geolocation=(), microphone=(), camera=()
   -->
-  <title>Outly — Discover communities. Build real-world connections.</title>
-  <meta name="description" content="Outly helps people discover communities and build meaningful real-world connections through events, activities and shared experiences — for universities, accommodation, councils, venues, hosts and more.">
+  <title>Outly — Run events where people actually connect</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -27,8 +26,6 @@
      NAV
      ============================================================ -->
 <nav>
-  <!-- DEV: official logo goes in /assets/logos/logo-light.svg (see assets/logos/README.md).
-       If your export is a full "Outly" wordmark lockup, point the img at it and delete the span below. -->
   <a href="#" class="logo">
     <img src="/assets/logos/logo-light.svg" width="44" height="44" alt="Outly logo">
     <div class="logo-wordmark">
@@ -36,11 +33,11 @@
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#problemsec">About</a></li>
+    <li><a href="#about-anchor">About</a></li>
     <li><a href="#value">Why Outly</a></li>
-    <li><a href="#whoforsec">Solutions</a></li>
-    <li><a href="#howsec">How it works</a></li>
-    <li><a href="/signup.html" class="nav-cta">Partner With Us</a></li>
+    <li><a href="#whoforsec">Who it's for</a></li>
+    <li><a href="#howsec">Getting started</a></li>
+    <li><a href="#ctasec" class="nav-cta">Sign In</a></li>
   </ul>
 </nav>
 
@@ -71,15 +68,14 @@
   </div>
 
   <div class="hero-content">
-    <div class="hero-pill"><span class="hero-dot" aria-hidden="true"></span>Discover what's happening near you</div>
-    <h1 class="hero-h1">Helping people discover communities and build <em>meaningful real-world connections</em></h1>
-    <p class="hero-sub">Outly helps organisations, hosts and communities turn real-world activities into easier discovery, participation and connection.</p>
+    <div class="hero-pill"><span class="hero-dot" aria-hidden="true"></span>Less swiping. More Outly.</div>
+    <h1 class="hero-h1">Run events where<br>people actually<br><em>connect</em></h1>
+    <p class="hero-sub">Whether you run dating events, social mixers or community experiences, Outly gives you the infrastructure to fill rooms, create meaningful connections and build a business that scales</p>
     <div class="hero-actions">
-      <a href="#solution" class="btn-primary">
-        Explore Outly
+      <a href="/signup.html" class="btn-primary">
+        Get Started
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="/signup.html" class="btn-secondary">Partner With Us</a>
     </div>
   </div>
 </section>
@@ -90,86 +86,65 @@
 <div id="about-anchor"></div>
 <div class="ticker-bar" aria-hidden="true">
   <div class="ticker-track">
-    <div class="ticker-item"><span class="tdot"></span>Communities · Activities · Events · Shared experiences</div>
-    <div class="ticker-item"><span class="tdot"></span>Universities · Student accommodation · Hostels · Councils</div>
-    <div class="ticker-item"><span class="tdot"></span>Discover what's happening near you</div>
-    <div class="ticker-item"><span class="tdot"></span>Venues · Societies · Sports clubs · Community groups</div>
-    <div class="ticker-item"><span class="tdot"></span>Helping people participate in real life</div>
+    <div class="ticker-item"><span class="tdot"></span>Launching in London and Los Angeles</div>
+    <div class="ticker-item"><span class="tdot"></span>London · Los Angeles · New York · Miami</div>
+    <div class="ticker-item"><span class="tdot"></span>Powered by So Syncd personality matching</div>
+    <div class="ticker-item"><span class="tdot"></span>Dating events · Social mixers · Community nights</div>
     <div class="ticker-item"><span class="tdot"></span>No upfront cost · Free to get started</div>
-    <div class="ticker-item"><span class="tdot"></span>Communities · Activities · Events · Shared experiences</div>
-    <div class="ticker-item"><span class="tdot"></span>Universities · Student accommodation · Hostels · Councils</div>
-    <div class="ticker-item"><span class="tdot"></span>Discover what's happening near you</div>
-    <div class="ticker-item"><span class="tdot"></span>Venues · Societies · Sports clubs · Community groups</div>
-    <div class="ticker-item"><span class="tdot"></span>Helping people participate in real life</div>
+    <div class="ticker-item"><span class="tdot"></span>You set the ticket price</div>
+    <div class="ticker-item"><span class="tdot"></span>Launching in London and Los Angeles</div>
+    <div class="ticker-item"><span class="tdot"></span>London · Los Angeles · New York · Miami</div>
+    <div class="ticker-item"><span class="tdot"></span>Powered by So Syncd personality matching</div>
+    <div class="ticker-item"><span class="tdot"></span>Dating events · Social mixers · Community nights</div>
     <div class="ticker-item"><span class="tdot"></span>No upfront cost · Free to get started</div>
+    <div class="ticker-item"><span class="tdot"></span>You set the ticket price</div>
   </div>
 </div>
 
 <!-- ============================================================
-     PROBLEM — Communities already exist (frost)
-     ============================================================ -->
-<section class="problemsec" id="problemsec">
-  <div class="problemsec-in">
-    <span class="eyebrow reveal">The opportunity</span>
-    <h2 class="title reveal">Communities already exist.<br>People just don't always <em>know how to find them</em></h2>
-    <p class="sub reveal d1">Every city is full of places to belong — they're just scattered across noticeboards, group chats, flyers and word of mouth. Outly brings them into one place, so taking the first step into real-world social settings is easier.</p>
-    <div class="problem-pills reveal d2">
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">🎓</span>Universities</span>
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">🏠</span>Student accommodation</span>
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">🎭</span>Societies</span>
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">🧳</span>Hostels</span>
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">🤝</span>Community groups</span>
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">⚽</span>Sports clubs</span>
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">📅</span>Local events</span>
-      <span class="problem-pill"><span class="pp-ic" aria-hidden="true">🏙️</span>Venues</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SOLUTION — What Outly does (dark)
+     SOLUTION — What is Outly? (dark)
      ============================================================ -->
 <section class="solution" id="solution">
   <div class="sol-inner">
     <div>
       <span class="eyebrow reveal">What is Outly?</span>
-      <h2 class="title reveal">A discovery layer for<br>real-world communities,<br>activities and <em>experiences</em></h2>
-      <p class="sub reveal d1">Outly brings events, activities, hosts and communities into one place to discover and participate. Organisations use it to grow participation; people use it to find their way into real life.</p>
+      <h2 class="title reveal">Infrastructure built<br>for events where<br><em>connection matters</em></h2>
+      <p class="sub reveal d1">Outly is purpose-built for dating and social events. It handles ticketing, connects users and turns in-person engagements into real connections</p>
 
       <div class="reveal d2">
         <div class="dash-card">
           <div class="dash-hd">
-            <span class="dash-title">What's on near you</span>
+            <span class="dash-title">Your events dashboard</span>
             <span class="dash-badge">Live</span>
           </div>
           <div class="ev-row">
-            <div class="ev-thumb" aria-hidden="true">🎓</div>
+            <div class="ev-thumb" aria-hidden="true">🍾</div>
             <div>
-              <div class="ev-name">Freshers Welcome Mixer</div>
-              <div class="ev-meta">Fri 16 May · 7:00 PM · Students' Union</div>
+              <div class="ev-name">Rooftop Mix &amp; Mingle</div>
+              <div class="ev-meta">Fri 16 May · 7:00 PM · Soho</div>
             </div>
-            <div class="ev-sold">42 going</div>
+            <div class="ev-sold">42 sold</div>
           </div>
           <div class="ev-row">
-            <div class="ev-thumb" aria-hidden="true">🏃</div>
+            <div class="ev-thumb" aria-hidden="true">🎭</div>
             <div>
-              <div class="ev-name">Sunday Morning Run Club</div>
-              <div class="ev-meta">Sun 18 May · 9:30 AM · Riverside</div>
+              <div class="ev-name">Speed Dating Night</div>
+              <div class="ev-meta">Sat 24 May · 6:30 PM · Shoreditch</div>
             </div>
-            <div class="ev-sold">28 going</div>
+            <div class="ev-sold">28 sold</div>
           </div>
           <div class="ev-row ev-row--draft">
-            <div class="ev-thumb" aria-hidden="true">🍲</div>
+            <div class="ev-thumb" aria-hidden="true">🌆</div>
             <div>
-              <div class="ev-name">Newcomers' Supper Club</div>
-              <div class="ev-meta">June · Community kitchen</div>
+              <div class="ev-name">Singles Dinner Series</div>
+              <div class="ev-meta">June · Various venues</div>
             </div>
             <div class="ev-sold ev-sold--draft">Draft</div>
           </div>
           <div class="dash-metrics">
-            <div class="met-box"><span class="met-n">1.2<span>k</span></span><span class="met-l">Discovered</span></div>
-            <div class="met-box"><span class="met-n">87<span>%</span></span><span class="met-l">Attendance</span></div>
-            <div class="met-box"><span class="met-n">3<span> live</span></span><span class="met-l">Activities</span></div>
+            <div class="met-box"><span class="met-n">£<span>2.4k</span></span><span class="met-l">This month</span></div>
+            <div class="met-box"><span class="met-n">87<span>%</span></span><span class="met-l">Sell-through</span></div>
+            <div class="met-box"><span class="met-n">3<span> evts</span></span><span class="met-l">Active</span></div>
           </div>
         </div>
       </div>
@@ -177,70 +152,70 @@
 
     <div class="sol-feats">
       <div class="feat reveal d1">
-        <div class="feat-ic" aria-hidden="true">🔍</div>
-        <div><h4>Discovery in one place</h4><p>Activities, events and communities surface to the people most likely to take part — no more scattered noticeboards and group chats</p></div>
+        <div class="feat-ic" aria-hidden="true">🎟️</div>
+        <div><h4>Ticketing that works for you</h4><p>Simply create your event and set the price. We'll handle sales, check-in and payments</p></div>
       </div>
       <div class="feat reveal d2">
-        <div class="feat-ic" aria-hidden="true">🎟️</div>
-        <div><h4>Simple participation</h4><p>Free or paid, RSVP or ticketed. Outly handles sign-ups, check-in and payments so people can just show up</p></div>
+        <div class="feat-ic" aria-hidden="true">🔍</div>
+        <div><h4>High-intent audience discovery</h4><p>Increase your visibility amongst high-intent individuals looking for IRL experiences</p></div>
       </div>
       <div class="feat reveal d3">
         <div class="feat-ic" aria-hidden="true">⚡</div>
-        <div><h4>Connection before and after</h4><p>People see who else is going and can connect ahead of time — they arrive already knowing a face in the room</p></div>
+        <div><h4>Pre and post event matching</h4><p>User connectivity and in-app messaging where people are far more likely to turn up</p></div>
       </div>
       <div class="feat reveal">
         <div class="feat-ic" aria-hidden="true">🔄</div>
-        <div><h4>Belonging that lasts</h4><p>When people make real connections they come back, bring friends and build communities that sustain themselves</p></div>
+        <div><h4>Repeat attendance built-in</h4><p>When real connections happen, people come back, bring friends and build communities</p></div>
       </div>
       <div class="feat reveal d1">
         <div class="feat-ic" aria-hidden="true">📊</div>
-        <div><h4>Participation insight</h4><p>See what's working — who's discovering, attending and coming back — across every activity you run</p></div>
+        <div><h4>Data insights</h4><p>Track real results, not just attendance. See how many people matched and met up</p></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     HOW IT WORKS — Discover → Attend → Connect → Return (bone)
+     PULSE — How it works (bone)
      ============================================================ -->
 <section class="pulse" id="pulse">
   <div class="pulse-in">
     <div class="pulse-header">
       <span class="eyebrow reveal">How it works</span>
-      <h2 class="title reveal">From discovery to <em>belonging</em></h2>
-      <p class="sub reveal d1">Outly turns one-off activities into ongoing participation. People discover what's on, take part, connect with others there, and come back for more.</p>
+      <h2 class="title reveal">People don't just buy a ticket.<br><em>They know someone's going</em></h2>
+      <p class="sub reveal d1">The moment someone buys a ticket, Pulse shows them compatible people already going. They connect before the event — better show-up rates, better rooms, events that actually deliver.</p>
     </div>
 
     <div class="pulse-grid">
       <div class="pstep reveal d1">
-        <div class="pstep-hd"><span class="pnum">01</span><h4>Discover</h4></div>
-        <p>People find activities, events and communities that fit them — surfaced by interest and proximity, not buried in a feed.</p>
-        <div class="ptag">Easier to find</div>
+        <div class="pstep-hd"><span class="pnum">01</span><h4>Host your event</h4></div>
+        <p>Set up ticketing, pricing, and event details. Go live in minutes. Outly handles discovery and gets the right people through the door.</p>
+        <div class="ptag">Live in minutes</div>
       </div>
       <div class="pstep reveal d2">
-        <div class="pstep-hd"><span class="pnum">02</span><h4>Attend</h4></div>
-        <p>Sign up or grab a ticket in seconds. Free or paid, RSVP or ticketed — check-in and payments handled end to end.</p>
-        <div class="ptag ptag--success">Show up easily</div>
+        <div class="pstep-hd"><span class="pnum">02</span><h4>Attendee buys a ticket</h4></div>
+        <p>The moment someone purchases, Pulse activates. They're shown compatible people already going — matched by personality, not just proximity.</p>
+        <div class="ptag ptag--gold">Powered by So Syncd</div>
       </div>
       <div class="pstep reveal d3">
-        <div class="pstep-hd"><span class="pnum">03</span><h4>Connect</h4></div>
-        <p>See who else is going and break the ice before the day. People arrive already knowing someone in the room.</p>
-        <div class="ptag ptag--purple">A face you recognise</div>
+        <div class="pstep-hd"><span class="pnum">03</span><h4>Connect before the event</h4></div>
+        <p>Attendees can reach out to compatible ticket holders ahead of the night. They arrive already excited — with a face they recognise.</p>
+        <div class="ptag ptag--success">Higher show-up rate</div>
       </div>
       <div class="pstep reveal d3">
-        <div class="pstep-hd"><span class="pnum">04</span><h4>Return</h4></div>
-        <p>Real connections turn one visit into a habit. People come back, bring friends and the community grows itself.</p>
-        <div class="ptag ptag--gold">Belonging that lasts</div>
+        <div class="pstep-hd"><span class="pnum">04</span><h4>Meet in real life</h4></div>
+        <p>The event is the date. Real rooms, real energy, real chemistry — not something that has to be arranged afterwards. The night does the work.</p>
+        <div class="ptag ptag--purple">The event is the moment</div>
       </div>
     </div>
 
     <div class="pulse-cta reveal">
       <div>
-        <h4>"People I'd get on with are going to this."</h4>
-        <p>That's what turns a listing into a community — and a one-off into a habit.</p>
+        <h4>"3 compatible people are going to this event."</h4>
+        <p>That one line sells more tickets than any ad ever will.</p>
       </div>
       <a href="/signup.html" class="btn-primary btn-primary--orange">
-        Partner With Us
+        Get Started
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -248,181 +223,57 @@
 </section>
 
 <!-- ============================================================
-     WHO OUTLY HELPS — three groups (frost)
-     ============================================================ -->
-<section class="audiencesec" id="audiencesec">
-  <div class="audiencesec-header">
-    <span class="eyebrow reveal">Who Outly helps</span>
-    <h2 class="title reveal">One platform.<br>Three sides of the same <em>community</em></h2>
-    <p class="sub reveal d1">Organisations grow participation, organisers run things without the overhead, and people find their way into real life.</p>
-  </div>
-
-  <div class="audience-grid">
-    <div class="audience-card reveal d1">
-      <div class="audience-card-hd"><div class="audience-ico" aria-hidden="true">🏛️</div><h3>Communities</h3></div>
-      <p>Organisations that want stronger, more active communities.</p>
-      <ul class="audience-list">
-        <li>Universities</li>
-        <li>Student accommodation</li>
-        <li>Councils</li>
-        <li>Hostels</li>
-        <li>Leisure centres</li>
-        <li>Community organisations</li>
-        <li>Sports clubs</li>
-      </ul>
-    </div>
-    <div class="audience-card reveal d2">
-      <div class="audience-card-hd"><div class="audience-ico" aria-hidden="true">🎪</div><h3>Organisers</h3></div>
-      <p>The people who bring others together and make things happen.</p>
-      <ul class="audience-list">
-        <li>Independent hosts</li>
-        <li>Student societies</li>
-        <li>Event companies</li>
-        <li>Matchmakers</li>
-        <li>Influencers &amp; creators</li>
-        <li>Venues</li>
-      </ul>
-    </div>
-    <div class="audience-card reveal d3">
-      <div class="audience-card-hd"><div class="audience-ico" aria-hidden="true">🙋</div><h3>People</h3></div>
-      <p>Anyone looking to take part and meet people in real life.</p>
-      <ul class="audience-list">
-        <li>Students</li>
-        <li>Newcomers to a city</li>
-        <li>Travellers</li>
-        <li>Young professionals</li>
-        <li>Anyone looking to connect in real life</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SOLUTIONS / USE CASES — verticals (bone)
-     ============================================================ -->
-<section class="whoforsec" id="whoforsec">
-  <div class="whoforsec-header">
-    <span class="eyebrow reveal">Solutions</span>
-    <h2 class="title reveal">The same platform.<br>Built around <em>your community</em></h2>
-    <p class="sub reveal d1">The technology underneath doesn't change — only the use case does. Here's how different organisations put Outly to work.</p>
-  </div>
-
-  <div class="for-grid">
-    <div class="for-card reveal d1">
-      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🎓</div><h3>Universities &amp; student life</h3></div>
-      <p>Help students discover societies, events and campus life — and find their people from week one.</p>
-      <ul class="for-list">
-        <li>Surface societies, clubs and events in one place</li>
-        <li>Support belonging and participation across campus</li>
-        <li>See what students are actually engaging with</li>
-        <li>Help newcomers take the first step into student life</li>
-      </ul>
-    </div>
-    <div class="for-card reveal d2">
-      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🏠</div><h3>Student accommodation</h3></div>
-      <p>Build stronger resident communities from day one and give residents a reason to take part.</p>
-      <ul class="for-list">
-        <li>Run welcome events and resident activities easily</li>
-        <li>Help residents discover what's happening in the building</li>
-        <li>Turn a place to live into a community to belong to</li>
-        <li>Track participation across the year</li>
-      </ul>
-    </div>
-    <div class="for-card reveal d2">
-      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🧳</div><h3>Hostels &amp; travellers</h3></div>
-      <p>Help travellers meet people and discover local experiences the moment they arrive.</p>
-      <ul class="for-list">
-        <li>List activities, tours and social nights</li>
-        <li>Help solo travellers connect with others</li>
-        <li>Surface local experiences worth showing up for</li>
-        <li>Give guests a reason to stay, return and recommend</li>
-      </ul>
-    </div>
-    <div class="for-card reveal d3">
-      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🤝</div><h3>Councils &amp; community organisations</h3></div>
-      <p>Grow participation in existing communities and make local life easier to find.</p>
-      <ul class="for-list">
-        <li>Bring scattered local activity into one place</li>
-        <li>Support belonging, participation and connection</li>
-        <li>Reach residents who'd otherwise miss out</li>
-        <li>Measure engagement across programmes</li>
-      </ul>
-    </div>
-    <div class="for-card reveal d1">
-      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🏙️</div><h3>Venues &amp; local experiences</h3></div>
-      <p>Partner with organisers bringing highly engaged audiences and fill quieter slots reliably.</p>
-      <ul class="for-list">
-        <li>Fill midweek and off-peak slots</li>
-        <li>Access a network of trusted organisers</li>
-        <li>Engaged attendees drive real on-site spend</li>
-        <li>Repeat bookings without one-off promotions</li>
-      </ul>
-    </div>
-    <div class="for-card reveal d2">
-      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🎤</div><h3>Independent hosts &amp; societies</h3></div>
-      <p>Run events and communities without worrying about infrastructure or upfront cost.</p>
-      <ul class="for-list">
-        <li>Ticketing, sign-ups, check-in and payments in one place</li>
-        <li>Reach new people beyond your existing following</li>
-        <li>Connection tools that lift show-up and repeat rates</li>
-        <li>Turn one event into a recurring programme</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     FEATURES — Infrastructure for participation (frost)
+     VALUE — What makes it unique (frost)
      ============================================================ -->
 <section class="value" id="value">
   <div class="val-in">
     <div class="val-header">
-      <span class="eyebrow reveal">The product</span>
-      <h2 class="title reveal">Infrastructure for <em>participation</em></h2>
-      <p class="sub reveal d1">Everything organisations and hosts need to turn real-world activities into discovery, attendance and connection.</p>
+      <span class="eyebrow reveal">What makes it unique</span>
+      <h2 class="title reveal">The infrastructure of a <em>ticketing platform</em>.<br>The features of a<br><em>dating app</em></h2>
+      <p class="sub reveal d1">Everything you need to launch, fill and grow connection-driven events</p>
     </div>
     <div class="val-grid">
       <div class="val-card reveal d1">
-        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">🔍</span><h4>Event &amp; activity discovery</h4></div>
-        <p>Activities surface to the people most likely to take part — by interest and proximity, not ad spend.</p>
+        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">🎟️</span><h4>Ticketing &amp; payments</h4></div>
+        <p>Set your own price. Manage capacity, tiers, and check-in. Payments handled end-to-end.</p>
       </div>
       <div class="val-card reveal d2">
-        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">🎟️</span><h4>Ticketing &amp; payments</h4></div>
-        <p>Free or paid, RSVP or ticketed. Set your price, manage capacity and tiers, payments handled end to end.</p>
+        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">🔍</span><h4>Audience discovery</h4></div>
+        <p>Your event surfaces to high-intent people already looking to attend events like yours. No ad spend required.</p>
       </div>
       <div class="val-card reveal d3">
-        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">📲</span><h4>QR check-in</h4></div>
-        <p>Fast, paperless check-in on the door. Know who's arrived and keep the entrance moving.</p>
+        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">⚡</span><h4>Pulse matching</h4></div>
+        <p>Pre-event compatibility matching that drives higher ticket conversion, better show-up rates, and rooms with real energy.</p>
       </div>
       <div class="val-card reveal d1">
-        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">💬</span><h4>Messaging</h4></div>
-        <p>In-app messaging lets people connect before and after — so showing up never means showing up to strangers.</p>
+        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">💘</span><h4>Personality matching</h4></div>
+        <p>Powered by So Syncd. Compatible people find each other at your events — better connections, better word of mouth.</p>
       </div>
       <div class="val-card reveal d2">
-        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">⚡</span><h4>Pulse connection</h4></div>
-        <p>People see who else is going and can break the ice early — driving higher attendance and repeat participation.</p>
+        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">🔄</span><h4>Repeat attendance</h4></div>
+        <p>When people make real connections, they come back. The Pulse system builds loyalty into the experience, not through marketing.</p>
       </div>
       <div class="val-card reveal d3">
-        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">📊</span><h4>Analytics</h4></div>
-        <p>Track discovery, attendance and return rates across every activity — in one clean view.</p>
+        <div class="val-card-hd"><span class="val-icon" aria-hidden="true">📊</span><h4>Host dashboard &amp; analytics</h4></div>
+        <p>Track attendance, revenue, and engagement across all your events. Everything you need to grow, in one clean view.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     PULSE / CONNECTION LAYER — feature deep-dive (dark)
+     PERSONALITY MATCHING (dark)
      ============================================================ -->
 <section class="forsec" id="forsec">
   <div class="match-in">
     <div class="reveal">
-      <span class="eyebrow">Pulse · the connection layer</span>
-      <h2 class="title reveal">Taking part is the<br>start of <em>belonging</em></h2>
-      <p class="sub reveal d1">From the moment someone signs up, Pulse shows them others going who they're likely to get on with. They arrive having broken the ice — and far more likely to come back.</p>
+      <span class="eyebrow">Personality matching</span>
+      <h2 class="title reveal">The ticket is just<br>the beginning of<br>the <em>connection</em></h2>
+      <p class="sub reveal d1">From the moment of purchase, attendees see compatible people going. They arrive having broken the ice and knowing who to engage with</p>
 
       <div class="match-card">
         <div class="match-card-hd">
-          <span class="match-card-t">People going you'd likely get on with</span>
+          <span class="match-card-t">Compatible people going to this event</span>
           <div class="pow-badge"><span class="pow-dot" aria-hidden="true"></span>Powered by So Syncd</div>
         </div>
         <div class="comp-rows">
@@ -431,7 +282,7 @@
           <div class="comp-row"><span class="comp-lbl">Lifestyle</span><div class="comp-track"><div class="comp-fill" style="--fw:78%"></div></div><span class="comp-pct">78%</span></div>
           <div class="comp-row"><span class="comp-lbl">Interests</span><div class="comp-track"><div class="comp-fill" style="--fw:88%"></div></div><span class="comp-pct">88%</span></div>
         </div>
-        <div class="att-lbl">Others going you might click with</div>
+        <div class="att-lbl">Your top matches already going</div>
         <div class="att-pills">
           <div class="att-pill">🙋 Jamie, 29 <span class="att-score">94%</span></div>
           <div class="att-pill">🙋 Alex, 31 <span class="att-score">88%</span></div>
@@ -442,8 +293,8 @@
       <div class="match-sub">
         <div class="match-sub-ic" aria-hidden="true">⚡</div>
         <div>
-          <h5>Connection starts before the day.</h5>
-          <p>Before they even walk through the door, people going are already talking.</p>
+          <h5>Connection starts at checkout.</h5>
+          <p>Before they even walk through the door, compatible attendees are already talking.</p>
         </div>
       </div>
     </div>
@@ -451,27 +302,81 @@
     <div class="match-pts-col">
       <div class="match-pt reveal d1">
         <div class="mp-ic mp-ic--orange" aria-hidden="true">🧲</div>
-        <div><h4>More people take part</h4><p>"People I'd get on with are going" is the most powerful line on any listing.</p></div>
+        <div><h4>Sells more tickets</h4><p>"3 compatible people are going to this event" is the most powerful line on any listing.</p></div>
       </div>
       <div class="match-pt reveal d2">
         <div class="mp-ic mp-ic--purple" aria-hidden="true">📈</div>
-        <div><h4>Higher show-up rates</h4><p>People who've already connected with someone going are far more likely to actually turn up.</p></div>
+        <div><h4>Drives higher show-up rates</h4><p>People who've already connected with someone going are far more likely to turn up.</p></div>
       </div>
       <div class="match-pt reveal d3">
         <div class="mp-ic mp-ic--success" aria-hidden="true">🔄</div>
-        <div><h4>Communities that return</h4><p>When real connections happen, people come back, bring friends and build communities.</p></div>
+        <div><h4>Creates repeat attendance</h4><p>When real connections happen, people come back, bring friends and build communities.</p></div>
       </div>
       <div class="sosyncd reveal">
         <div class="ss-ic" aria-hidden="true">💜</div>
         <div>
           <h5>Powered by So Syncd</h5>
-          <p>Outly's connection layer is built on So Syncd's proven compatibility algorithm — the same technology that's already brought thousands of people together.</p>
+          <p>Outly's personality layer is built on So Syncd's proven compatibility algorithm — the same technology that's already brought thousands of couples together.</p>
         </div>
         <div class="ss-stat">
           <span class="ss-stat-n">5,700+</span>
-          <span class="ss-stat-l">connections made</span>
+          <span class="ss-stat-l">couples matched</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHO IT'S FOR (bone)
+     ============================================================ -->
+<section class="whoforsec" id="whoforsec">
+  <div class="whoforsec-header">
+    <span class="eyebrow reveal">Built for those who bring people together</span>
+    <h2 class="title reveal">Dating events. Social events.<br>Any event where <em>connection</em> is the point.</h2>
+    <p class="sub reveal d1">Outly ensures conversion from interest to attendance, whether it's for<br>dating, meeting friends or sharing interests</p>
+  </div>
+
+  <div class="for-grid">
+    <div class="for-card reveal d1">
+      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🎤</div><h3>Influencers &amp; Creators</h3></div>
+      <p>You've built an audience that trusts you. Outly lets you take them offline, charge for it, and deliver something genuinely memorable.</p>
+      <ul class="for-list">
+        <li>Monetise your audience through real-world events</li>
+        <li>You set the ticket price. No tech build or upfront costs</li>
+        <li>Earn commission from hosts that leverage your following</li>
+        <li>Give your community something to come back for</li>
+      </ul>
+    </div>
+    <div class="for-card reveal d2">
+      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🎪</div><h3>Event Organisers &amp; Hosts</h3></div>
+      <p>You already know how to run a good night. Outly handles the infrastructure so you can focus on the experience and maximising your potential</p>
+      <ul class="for-list">
+        <li>Ticketing, check-in, and payments in one place</li>
+        <li>Pulse matching drives higher show-up rates and repeat attendance</li>
+        <li>Reach new audiences beyond your existing following</li>
+        <li>Turn one event into a repeatable revenue stream</li>
+      </ul>
+    </div>
+    <div class="for-card reveal d2">
+      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🏙️</div><h3>Venues</h3></div>
+      <p>Dating events bring high-spending, highly motivated crowds. Partner with Outly hosts and turn quieter nights into consistently booked experiences.</p>
+      <ul class="for-list">
+        <li>Fill midweek and off-peak slots reliably</li>
+        <li>Access a network of trusted event operators</li>
+        <li>High-intent attendees drive real bar and food spend</li>
+        <li>Repeat bookings without running one-off promotions</li>
+      </ul>
+    </div>
+    <div class="for-card reveal d3">
+      <div class="for-card-hd"><div class="for-ico" aria-hidden="true">🤝</div><h3>Matchmakers &amp; Communities</h3></div>
+      <p>You have the trust and the niche. Outly gives you the system to take your community offline and build a sustainable events business around it.</p>
+      <ul class="for-list">
+        <li>Monetise everyone in your network, not just paying clients</li>
+        <li>Increased visibility amongst singles looking for IRL experiences</li>
+        <li>Run paid events without building your own ticketing</li>
+        <li>Scale from one event to a full recurring programme</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -483,8 +388,8 @@
   <div class="citiessec-in">
     <div class="citiessec-header">
       <span class="eyebrow reveal">Where we're launching</span>
-      <h2 class="title reveal">Real cities.<br>Real <em>communities</em></h2>
-      <p class="sub reveal d1">We're launching in cities where the demand for easier ways to discover communities and take part is clear.</p>
+      <h2 class="title reveal">Real cities.<br>Real <em>demand</em></h2>
+      <p class="sub reveal d1">We're launching in cities where the demand for better social and dating events is clear</p>
     </div>
 
     <div class="globe-center reveal d1">
@@ -518,37 +423,37 @@
 <script src="/js/globe.js"></script>
 
 <!-- ============================================================
-     GETTING STARTED — for partners (dark)
+     HOW IT WORKS — Getting started (dark)
      ============================================================ -->
 <section class="howsec" id="howsec">
   <div class="how-in">
     <div>
       <span class="eyebrow reveal">Getting started</span>
-      <h2 class="title reveal">Up and running<br><em>in minutes</em></h2>
-      <p class="sub reveal d1">Whether you're a university, a venue, a council or an independent host, getting started is straightforward — no complicated setup.</p>
+      <h2 class="title reveal">Launch your first event<br><em>in minutes</em></h2>
+      <p class="sub reveal d1">No complicated setup. Just a straightforward path from idea to sold-out event.</p>
 
       <div class="steps">
         <div class="step reveal d1">
           <div class="stepn">1</div>
-          <div><h4>Get in touch</h4><p>Tell us about your community and what you want to run. No upfront cost, no commitment.</p></div>
+          <div><h4>Apply to host</h4><p>Tell us about your audience and the events you want to run. No upfront cost, no commitment.</p></div>
         </div>
         <div class="step reveal d2">
           <div class="stepn">2</div>
-          <div><h4>Set up your activities</h4><p>Add your events, activities and details. Free or ticketed — live in minutes.</p></div>
+          <div><h4>Build your event</h4><p>Set your date, ticket price, capacity, and event details. Go live in minutes.</p></div>
         </div>
         <div class="step reveal d3">
           <div class="stepn">3</div>
-          <div><h4>Grow participation</h4><p>Outly surfaces what you run to the people most likely to take part. No ad spend needed.</p></div>
+          <div><h4>Fill the room</h4><p>Outly surfaces your event to high-intent people looking for exactly what you're offering. No ad spend needed.</p></div>
         </div>
         <div class="step reveal">
           <div class="stepn">4</div>
-          <div><h4>Build belonging</h4><p>Connection tools turn attendees into a community that comes back. Every activity builds on the last.</p></div>
+          <div><h4>Earn and grow</h4><p>Revenue paid out after each event. The Pulse system drives repeat attendance. Every event builds on the last.</p></div>
         </div>
       </div>
 
       <div class="reveal">
         <a href="/signup.html" class="btn-primary">
-          Partner With Us
+          Get Started
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
@@ -563,19 +468,19 @@
       <div class="fdiv"><div class="fline"></div></div>
       <div class="flow-c">
         <div class="flow-ic flow-ic--graphite" aria-hidden="true">📅</div>
-        <div><p>Activities and details — live in minutes</p></div>
+        <div><p>Pricing, tickets, details — live in minutes</p></div>
         <div class="flow-arr" aria-hidden="true">→</div>
       </div>
       <div class="fdiv"><div class="fline fline--success"></div></div>
       <div class="flow-c">
         <div class="flow-ic flow-ic--success" aria-hidden="true">👥</div>
-        <div><p>The right people discover what you run</p></div>
+        <div><p>High-intent individuals find your event</p></div>
         <div class="flow-arr" aria-hidden="true">→</div>
       </div>
       <div class="fdiv"><div class="fline fline--gold"></div></div>
       <div class="flow-c">
         <div class="flow-ic flow-ic--gold" aria-hidden="true">📈</div>
-        <div><p>Participation that compounds over time</p></div>
+        <div><p>Build repeatable, compounding business</p></div>
         <div class="flow-arr" aria-hidden="true">→</div>
       </div>
     </div>
@@ -583,20 +488,20 @@
 </section>
 
 <!-- ============================================================
-     PARTNER CTA (bone)
+     CTA — Ready to run better events? (bone)
      ============================================================ -->
 <section class="ctasec" id="ctasec">
   <div class="ctasec-in">
-    <span class="eyebrow reveal">Build stronger communities</span>
-    <h2 class="title reveal">Build stronger communities<br>with <em>Outly</em></h2>
+    <span class="eyebrow reveal">Ready to run better events?</span>
+    <h2 class="title reveal">Bring your events<br>to <em>Outly</em></h2>
     <div class="ctasec-body reveal d1">
-      <p class="sub">Universities. Accommodation. Councils. Hostels. Venues. Societies. Independent hosts.</p>
-      <p class="sub">If real-world participation matters to you, Outly is the platform.</p>
-      <p class="sub">Join the first wave of partners.</p>
+      <p class="sub">Dating events. Social mixers. Community nights. Daytime activities.</p>
+      <p class="sub">If connection is the point, Outly is the platform.</p>
+      <p class="sub">Join the first wave of hosts.</p>
     </div>
     <div class="ctasec-actions reveal d2">
       <a href="/signup.html" class="btn-primary">
-        Partner With Us
+        Get Started
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -619,27 +524,27 @@
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A3A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="faq-a"><p>Outly works for organisations that want stronger communities — universities, student accommodation, councils, hostels, leisure centres and community organisations — as well as the organisers who run activities and the people who take part. Wherever real-world participation matters, Outly makes it easier to discover and join in.</p></div>
+        <div class="faq-a"><p>Outly is built for hosts, venues, influencers, and community builders who run in-person dating and social events. If you can fill a room with people who want to meet someone — or just want to connect — Outly gives you the infrastructure to make it commercially viable.</p></div>
       </div>
 
       <div class="faq-item reveal d1">
         <div class="faq-q">
-          <span>Is Outly a dating platform?</span>
+          <span>Is this only for dating events?</span>
           <div class="faq-chev" aria-hidden="true">
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A3A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="faq-a"><p>No. Outly is community discovery infrastructure. Dating events are one use case among many — alongside student life, community activities, sports clubs, travel experiences and local events. The platform helps people discover communities and build meaningful connections, whatever the setting.</p></div>
+        <div class="faq-a"><p>Dating events are our core — highest-intent category, where our outcome system adds the most value. That said, any social event where people want to genuinely connect works on Outly. Networking nights, mixers, social clubs, niche interest events — the Pulse system works across all of them.</p></div>
       </div>
 
       <div class="faq-item reveal d2">
         <div class="faq-q">
-          <span>How do universities and accommodation providers use Outly?</span>
+          <span>Can matchmakers use Outly to monetise their full client base?</span>
           <div class="faq-chev" aria-hidden="true">
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A3A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="faq-a"><p>They use Outly to bring societies, events and activities into one place so students and residents can discover them and take part. It supports belonging and participation from week one, and gives a clear picture of what people are actually engaging with.</p></div>
+        <div class="faq-a"><p>Absolutely. Matchmakers often have large books of contacts who aren't paying subscribers. Outly gives them the infrastructure to run paid events for their entire network — creating a new revenue stream with no additional tech build required.</p></div>
       </div>
 
       <div class="faq-item reveal d3">
@@ -649,7 +554,7 @@
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A3A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="faq-a"><p>Yes. Venues can make their space available to organisers on the platform. Engaged attendees show up motivated and drive real on-site spend — so quieter and off-peak slots fill more reliably, without one-off promotions.</p></div>
+        <div class="faq-a"><p>Yes. Venues can partner with Outly to make their space available to hosts on the platform. Dating event attendees are high-spending and motivated — they drive real bar and food spend. Consistent bookings, no one-off promotions needed.</p></div>
       </div>
 
       <div class="faq-item reveal">
@@ -659,7 +564,7 @@
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A3A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="faq-a"><p>Get in touch and we'll learn about your community and onboard you. Early partners get direct access to the founding team, priority onboarding, and the best terms we'll ever offer.</p></div>
+        <div class="faq-a"><p>Apply by getting in touch. We'll get in touch, learn about your events, and onboard you. Early hosts get direct access to the founding team, priority onboarding, and the best terms we'll ever offer.</p></div>
       </div>
 
       <div class="faq-item reveal d1">
@@ -669,7 +574,7 @@
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A3A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="faq-a"><p>We're onboarding early partners and running live activities on the platform now. Full public launch is coming soon — partners who join during early access have a significant head start on reach and discovery.</p></div>
+        <div class="faq-a"><p>We're onboarding early hosts and running live events on the platform now. Full public launch is coming soon. Hosts who join during early access have a significant head start on audience reach and discovery.</p></div>
       </div>
 
     </div>
@@ -681,17 +586,16 @@
      ============================================================ -->
 <footer>
   <div class="ft-left">
-    <!-- DEV: official logo goes in /assets/logos/logo-dark.svg (see assets/logos/README.md). -->
     <a href="#" class="ft-logo">
       <img src="/assets/logos/logo-dark.svg" width="32" height="32" alt="Outly logo">
       <span class="ft-logo-text">Outly</span>
     </a>
-    <span class="ft-tag">Discover. Connect. Experience.</span>
+    <span class="ft-tag">Less swiping. More Outly.</span>
     <span class="ft-copy">© 2025 Outly. All rights reserved.</span>
   </div>
   <ul class="ft-links">
-    <li><a href="#value">Why Outly</a></li>
-    <li><a href="#whoforsec">Solutions</a></li>
+    <li><a href="#solution">Why Outly</a></li>
+    <li><a href="#whoforsec">Who it's for</a></li>
     <li><a href="#faqsec">FAQ</a></li>
     <li><a href="mailto:hello@outly.co">Contact</a></li>
   </ul>
