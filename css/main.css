@@ -197,6 +197,8 @@ nav {
 
 /* === SOLUTION (dark variant) === */
 .solution { background: var(--graphite); padding: 40px 48px; }
+.solution .title { color: var(--frost); }
+.solution .sub { color: var(--cool-grey); }
 .sol-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 .sol-feats { display: flex; flex-direction: column; gap: 28px; margin-top: 18px; align-self: center; }
 .feat {
@@ -465,6 +467,8 @@ nav {
 
 /* === HOW IT WORKS (dark) === */
 .howsec { background: var(--graphite); padding: 80px 48px; }
+.howsec .title { color: var(--frost); }
+.howsec .sub { color: var(--cool-grey); }
 .how-in { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .steps { display: flex; flex-direction: column; margin-top: 28px; position: relative; }
 .steps::before {
