@@ -406,17 +406,13 @@
   </div>
 </section>
 
-<!-- D3 + TopoJSON loaded before globe.js -->
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
-  integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69A=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"
-  integrity="sha512-4UFdGolqPSMnfqlwMU/g/GIFUcUeEmS1fKZ0TXTOxn05iEsaEJGBBjKMEGsIBNEBBPXBxMf5MJq0TJdJIJEA=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"></script>
+<!-- D3 + TopoJSON loaded before globe.js.
+     DEV: no SRI hashes here on purpose — add verified integrity="sha384-..."
+     values if you want subresource integrity, or self-host these two files
+     under /js/vendor/ and point the src at them. The CSP restricts script-src
+     to these CDN hosts. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/js/globe.js"></script>
 
 <!-- ============================================================
