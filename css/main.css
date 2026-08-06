@@ -2,7 +2,14 @@
    Outly — main.css
    Extracted from the approved landing design. No inline styles
    in markup; every rule below is a named class.
-   ============================================================ */
+
+   ── CHANGING THE LOGO ──────────────────────────────────────
+   The logo appears in the nav and the footer of both pages and
+   is ONE file: assets/logos/logo-dark-bg.svg
+   To swap it: replace that file, keep the filename. Nothing else.
+   To resize it: edit --logo-size / --logo-size-footer below.
+   Full notes: assets/logos/README.md
+   ─────────────────────────────────────────────────────────── */
 
 /* === TOKENS === */
 :root {
@@ -16,6 +23,10 @@
   --gold:       #D4AF37;
   --purple:     #7A68FF;
   --white:      #FFFFFF;
+
+  /* Logo sizing — change here, applies to both pages */
+  --logo-size:        44px;  /* nav */
+  --logo-size-footer: 32px;  /* footer */
 }
 
 /* === RESET === */
@@ -39,6 +50,9 @@ nav {
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+/* Sized in CSS so swapping the logo file never needs an HTML edit.
+   width:auto keeps a non-square wordmark lockup from being squashed. */
+.logo-mark { height: var(--logo-size); width: auto; display: block; }
 .logo-wordmark { display: flex; flex-direction: column; gap: 1px; }
 .logo-text {
   font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 400;
@@ -380,12 +394,13 @@ nav {
 .howsec {
   background: var(--frost);
   height: calc(100vh - 60px);
-  padding: 56px 48px 40px 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 48px;
   overflow: hidden;
 }
 .howsec-inner {
   display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center;
-  width: 100%; max-width: 1100px; margin: 0 0 0 48px;
+  width: 100%; max-width: 1100px; margin: 0 auto;
 }
 .howsec .title { color: var(--graphite); }
 .howsec .sub   { color: var(--slate); font-size: 15px; margin-bottom: 28px; }
@@ -410,7 +425,7 @@ nav {
 /* Globe column */
 .howsec-globe {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 20px; align-self: center; margin-left: auto; padding-right: 72px;
+  gap: 20px; align-self: center;
 }
 .globe-caption {
   font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 400;
@@ -471,6 +486,7 @@ footer {
 }
 .ft-left { display: flex; flex-direction: column; gap: 6px; }
 .ft-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.ft-logo-mark { height: var(--logo-size-footer); width: auto; display: block; }
 .ft-logo-text { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 400; color: var(--frost); letter-spacing: -0.4px; }
 .ft-tag  { font-size: 10.5px; color: var(--cool-grey); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
 .ft-copy { font-size: 12px; color: var(--slate); }
@@ -500,8 +516,7 @@ footer {
   }
   .hero-ring { display: none; }
   .sol-inner, .howsec-inner { grid-template-columns: 1fr; gap: 36px; }
-  .howsec-inner { margin: 0; max-width: 100%; }
-  .howsec-globe { margin-left: 0; padding-right: 0; }
+  .howsec { display: block; }
   .dash-col { margin-top: 0; }
   .partner-box { margin-top: 32px; }
   .pulse-grid { grid-template-columns: 1fr 1fr; }
