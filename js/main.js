@@ -1,6 +1,5 @@
-/* main.js — UI behaviours for Outly landing page
+/* main.js — UI behaviours for the Outly landing page
    - Scroll reveal (IntersectionObserver)
-   - Compatibility bar animations
    - FAQ accordion (no inline onclick handlers)
 */
 (function () {
@@ -17,18 +16,6 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-  /* === COMPATIBILITY BARS === */
-  const barObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll('.comp-fill').forEach(b => b.classList.add('anim'));
-        barObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  document.querySelectorAll('.match-card').forEach(c => barObs.observe(c));
 
   /* === FAQ ACCORDION === */
   function toggleFaq(questionEl) {
