@@ -1,0 +1,264 @@
+# Outly — Developer Notes
+
+Handover notes for the marketing site (`outlyevents.com`).
+Static HTML/CSS/JS — no build step, no framework, no npm install.
+Open `index.html` in a browser and it works.
+
+---
+
+## 1. File map
+
+```
+index.html            Landing page
+signup.html           Host registration  → /signup.html
+css/main.css          ALL styles for both pages
+js/main.js            Landing page: scroll reveal + FAQ accordion
+js/signup.js          Signup: type picker, validation, submission
+assets/logos/
+  logo-dark-bg.svg    THE logo — used by nav + footer on both pages
+  logo-light-bg.svg   Spare, for light backgrounds. Not currently used.
+  README.md           Logo swap instructions
+```
+
+**There are no external JavaScript dependencies.** The only outbound
+request is Google Fonts. Everything else is self-contained.
+
+---
+
+## 2. Colours
+
+Defined once as CSS custom properties at the top of `css/main.css`.
+Change them there and they cascade everywhere — never hard-code a hex.
+
+| Variable | Hex | Used for |
+|---|---|---|
+| `--graphite` | `#0F1E1E` | Dark section backgrounds, nav, footer, body text on light |
+| `--frost` | `#F2EEE6` | Light section backgrounds, text on dark |
+| `--orange` | `#E05A2A` | Primary accent — CTAs, eyebrows, `<em>` in headings, globe |
+| `--bone` | `#BFE5E1` | Pale teal section backgrounds |
+| `--slate` | `#4A6B6B` | Body copy on light backgrounds |
+| `--cool-grey` | `#A8B5C4` | Body copy on dark backgrounds, muted labels |
+| `--white` | `#FFFFFF` | Cards on coloured backgrounds |
+| `--success` | `#157F7A` | "Higher show-up rate" tag, sold counts, Live badge |
+| `--gold` | `#D4AF37` | "Powered by SoSyncd" tag |
+| `--purple` | `#7A68FF` | "Real connections" tag |
+
+### Text colour rule
+Light background → `--graphite` headings, `--slate` body.
+Dark background → `--frost` headings, `--cool-grey` body.
+
+Getting this backwards makes text invisible — it has already happened once
+on this site (a dark heading on a dark section). If you add a section,
+check the heading actually renders.
+
+---
+
+## 3. Section rhythm
+
+Backgrounds alternate deliberately. Keep the pattern if you add sections.
+
+| # | Section | `id` | Background |
+|---|---|---|---|
+| 1 | Hero | `hero` | graphite (dark) |
+| 2 | Ticker | — | graphite (dark) |
+| 3 | What is Outly | `solution` | bone |
+| 4 | What makes it unique | `value` | frost |
+| 5 | How it works / Pulse | `pulse` | graphite (dark) |
+| 6 | Who it's for | `matching` | bone |
+| 7 | Getting started | `how` | frost |
+| 8 | FAQ | `final` | graphite (dark) |
+| 9 | Footer | — | graphite (dark) |
+
+> `id="final"` holds the **FAQ** — a legacy name from the original design.
+> Don't rename it without updating the nav/footer links in `signup.html`.
+
+---
+
+## 4. Sizing
+
+### Full-viewport sections
+Sections 3–8 are `height: calc(100vh - 60px)` with `overflow: hidden`,
+so each fills the screen. The hero is `calc(100vh - 30px)`.
+
+**This is the most fragile thing on the site.** If content grows past the
+viewport it gets *silently clipped* — no scrollbar, it just vanishes.
+Guards are already in place:
+
+```css
+@media (max-width: 900px)                      { height: auto; overflow: visible; }
+@media (max-height: 820px) and (min-width: 901px) { height: auto; overflow: visible; }
+```
+
+If you add copy to one of these sections, **test at 1280×800** (a common
+laptop) before shipping. If it clips, either trim the copy or drop that
+section to `height: auto`.
+
+### Layout widths
+| Element | Max width |
+|---|---|
+| `.pulse-in` | 1060px |
+| `.val-in` | 1100px |
+| `.howsec-inner` | 1100px |
+| `.matching-in` | 900px |
+| `.faq-in` | 740px |
+| `.signup-wrap` | 680px |
+
+### Standard padding
+Desktop `48px` horizontal · Mobile (≤900px) `22px`.
+
+### Breakpoints
+| Width | Effect |
+|---|---|
+| ≤900px | Nav links hide, grids collapse to 1 column, fixed heights release |
+| ≤640px | Signup form grids → 1 column |
+| ≤540px | Pulse grid → 1 column |
+
+There is **no hamburger menu**. Below 900px the nav links are hidden and
+only the logo + Sign In button show. If you want mobile nav, that's a build.
+
+### Type scale
+Headings use **Sora** (weight 400 — deliberately light, don't bold them).
+Body uses **Manrope**.
+
+| Class | Size |
+|---|---|
+| `.hero-h1` | `clamp(40px, 5.5vw, 70px)` |
+| `.title` | `clamp(28px, 3.5vw, 46px)` |
+| `.sub` | 17px |
+| `.eyebrow` | 12px uppercase, orange |
+| Body / cards | 12–15px |
+
+---
+
+## 5. The logo
+
+**One file: `assets/logos/logo-dark-bg.svg`.** It is used in four places
+(nav + footer, on both pages). Replace that file, keep the filename, and
+all four update. Nothing else to edit.
+
+Sizing is in CSS, not the HTML:
+```css
+--logo-size:        44px;  /* nav */
+--logo-size-footer: 32px;  /* footer */
+```
+
+The nav and footer are both dark, so the artwork needs the **light/frost**
+version of the mark. `logo-light-bg.svg` is supplied only in case a light
+header appears later.
+
+**If your export is a full wordmark lockup** (mark + "Outly" together),
+point the `<img>` at it and delete the adjacent
+`<span class="logo-text">Outly</span>` (nav) /
+`<span class="ft-logo-text">Outly</span>` (footer), or you'll get "Outly"
+twice. Each position is marked with a `DEV: LOGO` comment in the HTML.
+
+---
+
+## 6. ⚠️ Things that still need doing before launch
+
+These are placeholders. **This is the list to work through.**
+
+### 6.1 Signup form doesn't submit anywhere real
+`js/signup.js` around line 152. Right now it opens the user's email client
+with the form contents pre-filled — a stopgap, not a real submission. It
+will not work for anyone without a configured mail client.
+
+The real `fetch()` call is written out and commented directly above it.
+Uncomment it and delete the mailto block once the endpoint exists:
+
+```js
+const res = await fetch('https://api.single-town.life/api/host-applications', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload),
+});
+```
+
+`POST /api/host-applications` **does not exist yet** — it needs building.
+The `payload` object in `signup.js` is the exact shape the form sends;
+use it as the DTO. It includes `idVerifyConsent` (boolean) from the
+over-18 / ID-verification checkbox.
+
+Alternative if the API isn't ready: point the `fetch` at a **Power Automate**
+HTTP-trigger URL, which can drop submissions into SharePoint, Excel or
+Teams. Same one-line change.
+
+### 6.2 Dead links
+| File | What | Currently |
+|---|---|---|
+| `signup.html` | Terms of Service | `href="#"` |
+| `signup.html` | Privacy Policy | `href="#"` |
+| `signup.html` | App Store badge | `href="#"` |
+| `signup.html` | Google Play badge | `href="#"` |
+
+The two app badges are emoji placeholders (🍎 / ▶️), not the official
+Apple/Google badge artwork. Apple and Google both have brand guidelines
+requiring their supplied assets — swap these before launch.
+
+### 6.3 Content still to confirm
+- Contact address is `hello@outly.co` (nav footer + signup fallback).
+- Copyright reads **© 2025** — update for the launch year.
+- Dashboard figures in the "What is Outly" section ($6.1k revenue,
+  122 tickets, 6 events) and the event names are **illustrative mock-ups**,
+  not real data.
+- The "5,700+ couples matched" SoSyncd figure appears twice — verify it's
+  current before launch.
+
+### 6.4 Copy nits flagged but not changed
+- Getting Started step 4: *"Pulse drives higher and repeat attendance"* —
+  "higher" has no noun. Probably meant "higher show-up and repeat attendance".
+- Hero web node says **"Culture centres"** (British) while the rest of the
+  copy is US English ("Organizers", "recognize", "sports centers").
+
+---
+
+## 7. .NET 10 hosting
+
+Serve as static files. Recommended response headers (there's a reminder
+comment at the top of `index.html` too):
+
+```
+Content-Security-Policy: default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: geolocation=(), microphone=(), camera=()
+```
+
+That CSP is deliberately tight and **will work as-is** because the site has
+no external JS. If you later add a third-party script or analytics tag, you
+must add its host to `script-src` or it will be silently blocked.
+
+**Do not add `integrity="sha…"` attributes to script tags unless you have
+verified the hash against the actual file.** A wrong SRI hash makes the
+browser refuse to load the script with no visible error. This exact issue
+previously broke the site's globe animation.
+
+Also: **disable Swagger UI in production** on `api.single-town.life`.
+Public Swagger exposes your whole API surface.
+`if (app.Environment.IsDevelopment()) { app.UseSwagger(); … }`
+
+---
+
+## 8. House rules
+
+1. **No inline `style=""`.** Both pages are currently at zero. Use a class.
+2. **No inline `onclick`.** Handlers are bound in the JS files — keeps the
+   CSP strict and the markup clean.
+3. **Use the colour variables**, don't hard-code hex values.
+4. **Test at 1280×800** because of the fixed-height sections (see §4).
+5. Decorative elements carry `aria-hidden="true"`; the FAQ rows are
+   keyboard-operable. Keep that if you touch them.
+
+---
+
+## 9. Quick local run
+
+```bash
+cd <project folder>
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
+
+Use a server rather than double-clicking the file, so the absolute paths
+(`/css/main.css`, `/assets/…`) resolve the same way they will in production.
