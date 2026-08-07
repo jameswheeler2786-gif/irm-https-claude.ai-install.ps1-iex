@@ -39,9 +39,15 @@ Change them there and they cascade everywhere — never hard-code a hex.
 | `--slate` | `#4A6B6B` | Body copy on light backgrounds |
 | `--cool-grey` | `#A8B5C4` | Body copy on dark backgrounds, muted labels |
 | `--white` | `#FFFFFF` | Cards on coloured backgrounds |
-| `--success` | `#157F7A` | "Higher show-up rate" tag, sold counts, Live badge |
-| `--gold` | `#D4AF37` | "Powered by SoSyncd" tag |
-| `--purple` | `#7A68FF` | "Real connections" tag |
+| `--success` | `#157F7A` | Ticket "sold" counts, "Live" badge |
+
+The four Pulse step tags (`.ptag`) all share **one orange treatment** — they
+were previously four different colours. There is no per-tag modifier class;
+if you add a fifth step, `class="ptag"` is all it needs.
+
+Two brand secondaries — gold `#D4AF37` and purple `#7A68FF` — were retired
+when the tags were unified. They're noted in a comment in `main.css` but
+nothing references them.
 
 ### Text colour rule
 Light background → `--graphite` headings, `--slate` body.
