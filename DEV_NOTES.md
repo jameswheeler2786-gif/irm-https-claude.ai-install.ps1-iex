@@ -11,9 +11,11 @@ Open `index.html` in a browser and it works.
 ```
 index.html            Landing page
 signup.html           Host registration  → /signup.html
+ambassadors.html      Campus Partner recruitment → /ambassadors.html
 css/main.css          ALL styles for both pages
 js/main.js            Landing page: scroll reveal + FAQ accordion
 js/signup.js          Signup: type picker, validation, submission
+js/ambassadors.js     Campus Partner: reveal, FAQ, application form
 assets/logos/
   logo-dark-bg.svg    THE logo — used by nav + footer on both pages
   logo-light-bg.svg   Spare, for light backgrounds. Not currently used.
@@ -188,6 +190,43 @@ over-18 / ID-verification checkbox.
 Alternative if the API isn't ready: point the `fetch` at a **Power Automate**
 HTTP-trigger URL, which can drop submissions into SharePoint, Excel or
 Teams. Same one-line change.
+
+### 6.5 Campus Partner page (`ambassadors.html`) — legal gates
+
+**Do not publish this page or run recruitment against it until the items
+below are closed.** They come straight from the strategy playbooks.
+
+1. **The compensation model is proposed, not settled.** The playbook calls
+   the three-year residual "subject to legal and economic validation" and
+   says earnings examples must be "labelled illustrative rather than
+   promised". The page reflects that — there is a terms notice under
+   "What you get" and matching wording in the FAQ and the consent
+   checkbox. **Don't strengthen that language into a promise** without
+   sign-off.
+2. **US worker-classification advice is outstanding.** Whether this is
+   employment, contractor, affiliate or something else affects tax
+   reporting, state exposure and international-student eligibility. The
+   playbook is explicit that calling it a "partner" does not resolve it.
+3. **University careers portals have their own rules.** Manchester and
+   Nottingham reject commission-only and self-employed vacancies. This
+   page is the *independent* route. Anything posted on a university
+   careers portal needs **separate, compliant copy** describing a paid
+   role — do not link portals straight here without checking each one's
+   policy.
+4. **Handshake employer verification is unconfirmed** for a UK entity —
+   its guidance is EIN/TIN-oriented and all new employers are manually
+   reviewed.
+
+### 6.6 Campus Partner form endpoint
+Same situation as the host form: `js/ambassadors.js` currently opens a
+mailto as a stopgap. The real call is commented in place —
+`POST /api/campus-applications`, which **does not exist yet**. The
+`payload` object is the DTO shape. A Power Automate HTTP trigger works
+as a drop-in alternative.
+
+The application questions are the playbook's filter questions verbatim,
+including the key one — *"who would you contact first, and why?"* — which
+is required. Keep it required; it's the whole screening mechanism.
 
 ### 6.2 Dead links
 | File | What | Currently |
