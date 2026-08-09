@@ -11,11 +11,11 @@ Open `index.html` in a browser and it works.
 ```
 index.html            Landing page
 signup.html           Host registration  → /signup.html
-ambassadors.html      Campus Partner recruitment → /ambassadors.html
+campus-partners.html  Campus Partner recruitment → /campus-partners.html
 css/main.css          ALL styles for both pages
 js/main.js            Landing page: scroll reveal + FAQ accordion
 js/signup.js          Signup: type picker, validation, submission
-js/ambassadors.js     Campus Partner: reveal, FAQ, application form
+js/campus-partners.js Campus Partner: reveal, FAQ, application form
 assets/logos/
   logo-dark-bg.svg    THE logo — used by nav + footer on both pages
   logo-light-bg.svg   Spare, for light backgrounds. Not currently used.
@@ -110,6 +110,8 @@ section to `height: auto`.
 | `.matching-in` | 900px |
 | `.faq-in` | 740px |
 | `.signup-wrap` | 680px |
+| `.cp-in` | 1060px |
+| `.cp-in--narrow` / `.cp-form-wrap` | 780px / 680px |
 
 ### Standard padding
 Desktop `48px` horizontal · Mobile (≤900px) `22px`.
@@ -191,7 +193,7 @@ Alternative if the API isn't ready: point the `fetch` at a **Power Automate**
 HTTP-trigger URL, which can drop submissions into SharePoint, Excel or
 Teams. Same one-line change.
 
-### 6.5 Campus Partner page (`ambassadors.html`) — legal gates
+### 6.5 Campus Partner page (`campus-partners.html`) — legal gates
 
 **Do not publish this page or run recruitment against it until the items
 below are closed.** They come straight from the strategy playbooks.
@@ -218,7 +220,7 @@ below are closed.** They come straight from the strategy playbooks.
    reviewed.
 
 ### 6.6 Campus Partner form endpoint
-Same situation as the host form: `js/ambassadors.js` currently opens a
+Same situation as the host form: `js/campus-partners.js` currently opens a
 mailto as a stopgap. The real call is commented in place —
 `POST /api/campus-applications`, which **does not exist yet**. The
 `payload` object is the DTO shape. A Power Automate HTTP trigger works
@@ -227,6 +229,51 @@ as a drop-in alternative.
 The application questions are the playbook's filter questions verbatim,
 including the key one — *"who would you contact first, and why?"* — which
 is required. Keep it required; it's the whole screening mechanism.
+
+### 6.7 Naming: don't call them "ambassadors"
+
+The page, the file, the CSS prefix (`.cp-*`) and the URL all say **Campus
+Partner**, deliberately. "Ambassador" describes `Brand → Ambassador →
+Downloads`. What this actually is:
+
+```
+Outly → Campus Partner → Hosts/Organisations → Events → Attendees → more Hosts
+```
+
+Success is measured in **activated hosts, not downloads** — that's why the
+page says so out loud. Please keep the naming consistent if you add related
+pages or admin screens.
+
+### 6.8 Build attribution as a generic system, not a campus feature
+
+**Recommendation for whoever builds the backend:** don't build a
+"campus ambassador" table. Build a generic **Partner / Promoter attribution
+system** — a partner record, a referred entity (host or organisation), an
+attribution window, and a rate. Campus Partner is then simply the first
+*programme* running on it.
+
+The same infrastructure is needed shortly for London promoters, venue
+scouts, hostel partners and creators/influencers. Building it campus-shaped
+means rebuilding it three times.
+
+Two details worth designing in from the start, both from the playbook:
+- Attribution for a society/chapter/club should attach to the
+  **organisation account**, not the individual — so it survives a committee
+  change.
+- Keep it to **direct attribution only** (partner → host). The playbook
+  explicitly warns against unlimited downstream referral trees.
+
+### 6.9 Worked earnings example — slot is ready
+
+`campus-partners.html` has a commented-out **worked example** block in the
+"What you get" section. It's deliberately empty: the per-ticket rate isn't
+agreed, and the playbook requires earnings figures to be labelled
+illustrative rather than promised.
+
+Once the rate is signed off, fill in the four numbers, delete the comment
+markers, and it renders — the `.worked-example` CSS already exists, so no
+styling work. **Keep the "Illustrative only" line**; do not reword it into
+a forecast.
 
 ### 6.2 Dead links
 | File | What | Currently |

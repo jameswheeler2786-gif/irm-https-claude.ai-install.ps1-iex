@@ -1,4 +1,4 @@
-/* ambassadors.js — Founding Campus Partner application page
+/* campus-partners.js — Founding Campus Partner application page
    - Scroll reveal
    - FAQ accordion
    - Application form validation + submission
@@ -31,8 +31,8 @@
   });
 
   /* === APPLICATION FORM === */
-  const form = document.getElementById('amb-form');
-  const successPanel = document.getElementById('amb-success');
+  const form = document.getElementById('cp-form');
+  const successPanel = document.getElementById('cp-success');
   if (!form) return;
 
   const val = id => (document.getElementById(id).value || '').trim();
@@ -46,28 +46,28 @@
 
   /* Required text/select fields: [elementId, errorId] */
   const REQUIRED = [
-    ['amb-name',    'err-amb-name'],
-    ['amb-dob',     'err-amb-dob'],
-    ['amb-uni',     'err-amb-uni'],
-    ['amb-year',    'err-amb-year'],
-    ['amb-city',    'err-amb-city'],
-    ['amb-network', 'err-amb-network'],
-    ['amb-first10', 'err-amb-first10'],
-    ['amb-why',     'err-amb-why'],
+    ['cp-name',    'err-cp-name'],
+    ['cp-dob',     'err-cp-dob'],
+    ['cp-uni',     'err-cp-uni'],
+    ['cp-year',    'err-cp-year'],
+    ['cp-city',    'err-cp-city'],
+    ['cp-network', 'err-cp-network'],
+    ['cp-first10', 'err-cp-first10'],
+    ['cp-why',     'err-cp-why'],
   ];
 
   /* Clear each error as the user types/changes */
-  REQUIRED.concat([['amb-email', 'err-amb-email']]).forEach(([fid, eid]) => {
+  REQUIRED.concat([['cp-email', 'err-cp-email']]).forEach(([fid, eid]) => {
     const el = document.getElementById(fid);
     if (!el) return;
     const evt = el.tagName === 'SELECT' ? 'change' : 'input';
     el.addEventListener(evt, () => setError(fid, eid, false));
   });
-  const confirmBox = document.getElementById('amb-confirm');
+  const confirmBox = document.getElementById('cp-confirm');
   if (confirmBox) {
     confirmBox.addEventListener('change', () => {
       confirmBox.classList.toggle('error', !confirmBox.checked);
-      document.getElementById('err-amb-confirm').classList.toggle('show', !confirmBox.checked);
+      document.getElementById('err-cp-confirm').classList.toggle('show', !confirmBox.checked);
     });
   }
 
@@ -80,13 +80,13 @@
       if (empty) ok = false;
     });
 
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('amb-email'));
-    setError('amb-email', 'err-amb-email', !emailOk);
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('cp-email'));
+    setError('cp-email', 'err-cp-email', !emailOk);
     if (!emailOk) ok = false;
 
     if (!confirmBox.checked) {
       confirmBox.classList.add('error');
-      document.getElementById('err-amb-confirm').classList.add('show');
+      document.getElementById('err-cp-confirm').classList.add('show');
       ok = false;
     }
 
@@ -107,22 +107,22 @@
     btn.textContent = 'Sending…';
 
     const payload = {
-      fullName:        val('amb-name'),
-      email:           val('amb-email'),
-      phone:           val('amb-phone') || null,
-      dob:             val('amb-dob'),
-      university:      val('amb-uni'),
-      yearOfStudy:     val('amb-year'),
-      city:            val('amb-city'),
-      instagram:       val('amb-ig') || null,
-      tiktok:          val('amb-tt') || null,
-      linkedin:        val('amb-li') || null,
-      network:         val('amb-network'),
-      firstTen:        val('amb-first10'),
-      trackRecord:     val('amb-track') || null,
-      firstEvent:      val('amb-event') || null,
-      motivation:      val('amb-why'),
-      motivationNotes: val('amb-why-more') || null,
+      fullName:        val('cp-name'),
+      email:           val('cp-email'),
+      phone:           val('cp-phone') || null,
+      dob:             val('cp-dob'),
+      university:      val('cp-uni'),
+      yearOfStudy:     val('cp-year'),
+      city:            val('cp-city'),
+      instagram:       val('cp-ig') || null,
+      tiktok:          val('cp-tt') || null,
+      linkedin:        val('cp-li') || null,
+      network:         val('cp-network'),
+      firstTen:        val('cp-first10'),
+      trackRecord:     val('cp-track') || null,
+      firstEvent:      val('cp-event') || null,
+      motivation:      val('cp-why'),
+      motivationNotes: val('cp-why-more') || null,
       confirmedEligible: confirmBox.checked,
       submittedAt:     new Date().toISOString(),
     };
