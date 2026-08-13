@@ -106,12 +106,8 @@
             </div>
           </div>
 
-          <label class="calc-check" for="h-promoter">
-            <input type="checkbox" id="h-promoter">
-            <span class="check-box" aria-hidden="true"></span>
-            <span>This event was brought to Outly by a promoter (changes Outly's cut, not yours)</span>
-          </label>
         </div>
+        <p class="notice" id="hWarn" hidden></p>
       </div>
 
       <div class="calc-sec">
@@ -120,11 +116,9 @@
           <div class="calc-flow">
             <div class="calc-flow-head calc-flow-head--teal">Per ticket</div>
             <div class="calc-row"><span class="rl">Your ticket price</span><span class="rv" id="hA1">—</span></div>
-            <div class="calc-row"><span class="rl">Booking fee (added on top)</span><span class="rv" id="hA2">—</span></div>
-            <div class="calc-row calc-row--cust"><span class="rl">Customer pays</span><span class="rv" id="hA3">—</span></div>
-            <div class="calc-row"><span class="rl" id="hA4l">Outly keeps</span><span class="rv" id="hA4">—</span></div>
-            <div class="calc-row calc-row--muted" id="hA5row"><span class="rl">of which, promoter</span><span class="rv" id="hA5">—</span></div>
-            <div class="calc-row calc-row--host"><span class="rl" id="hA6l">You receive</span><span class="rv" id="hA6">—</span></div>
+            <div class="calc-row"><span class="rl" id="hA2l">Platform fee</span><span class="rv" id="hA2">—</span></div>
+            <div class="calc-row calc-row--host"><span class="rl" id="hA3l">You receive</span><span class="rv" id="hA3">—</span></div>
+            <div class="calc-row calc-row--cust"><span class="rl">Customer pays</span><span class="rv" id="hA4">—</span></div>
           </div>
           <div class="calc-flow">
             <div class="calc-flow-head">Per event</div>
@@ -235,9 +229,8 @@
             <div class="calc-flow-head">Per ticket sold</div>
             <div class="calc-row"><span class="rl">Host ticket price</span><span class="rv" id="pA1">—</span></div>
             <div class="calc-row calc-row--cust"><span class="rl">Customer pays</span><span class="rv" id="pA2">—</span></div>
-            <div class="calc-row"><span class="rl" id="pA3l">Host receives</span><span class="rv" id="pA3">—</span></div>
-            <div class="calc-row"><span class="rl">Outly keeps</span><span class="rv" id="pA4">—</span></div>
-            <div class="calc-row calc-row--you"><span class="rl" id="pA5l">You earn</span><span class="rv" id="pA5">—</span></div>
+            <div class="calc-row"><span class="rl">Host receives (unchanged by you)</span><span class="rv" id="pA3">—</span></div>
+            <div class="calc-row calc-row--you"><span class="rl">You earn</span><span class="rv" id="pA4">—</span></div>
           </div>
           <div class="calc-flow">
             <div class="calc-flow-head calc-flow-head--teal">Per host, per month</div>
@@ -257,10 +250,10 @@
             <div class="cl">Per month, all hosts</div><div class="cv" id="pSMonth">—</div><div class="cs" id="pSMonthSub">—</div>
           </div>
           <div class="calc-card calc-card--dark">
-            <div class="cl">Year 1</div><div class="cv" id="pSY1">—</div><div class="cs">months 1–12</div>
+            <div class="cl" id="pSTrailLbl">Full total</div><div class="cv" id="pSTrail">—</div><div class="cs">while your hosts stay active</div>
           </div>
           <div class="calc-card calc-card--teal">
-            <div class="cl">Year 2</div><div class="cv" id="pSY2">—</div><div class="cs">months 13–24</div>
+            <div class="cl" id="pSPerHostLbl">Value of one host</div><div class="cv" id="pSPerHost">—</div><div class="cs">over the full period</div>
           </div>
         </div>
         <div class="calc-banner">
@@ -304,56 +297,34 @@
 
     <div class="split-grid">
       <div class="split-card split-card--host reveal d1">
-        <div class="split-pct" id="pxHost">90%</div>
-        <h3>Goes to the host</h3>
-        <p>Of every ticket you sell at your own price. Paid out after the event.</p>
+        <div class="split-pct" id="pxKeepVal">—</div>
+        <h3>You keep, per ticket</h3>
+        <p>Your ticket price less a platform fee of <strong id="pxKeepFee">—</strong>. Paid out after your event.</p>
       </div>
       <div class="split-card reveal d2">
-        <div class="split-pct" id="pxOutly">10%</div>
-        <h3>Outly's commission</h3>
-        <p>Covers ticketing, discovery, Pulse, check-in and support. Payment processing fees come out of this, not out of you.</p>
+        <div class="split-pct" id="pxPaysVal">—</div>
+        <h3>Your customer pays</h3>
+        <p>Your price plus a booking fee of <strong id="pxPaysFee">—</strong>. Added at checkout, never taken off your price.</p>
       </div>
       <div class="split-card reveal d3">
-        <div class="split-pct" id="pxFee">+£2</div>
-        <h3>Flat booking fee</h3>
-        <p>Added to the customer's total, never deducted from your price. It's the only fee an attendee ever sees.</p>
+        <div class="split-pct" id="pxPromoVal">—</div>
+        <h3>Promoters earn</h3>
+        <p>A flat amount <strong id="pxPromoFee">—</strong>, on every ticket their hosts sell.</p>
       </div>
+    </div>
+    <p class="calc-hint reveal" id="pxExample"></p>
+
+    <div class="notice notice--dark reveal">
+      <strong>A promoter never costs the host anything.</strong> When a promoter
+      or Campus Partner brings a host onto Outly, their reward is paid
+      separately by Outly. The host receives exactly the same amount per
+      ticket whether a promoter was involved or not.
     </div>
 
     <div class="notice notice--dark reveal">
-      <strong>Where a promoter's cut comes from.</strong> When a promoter or
-      Campus Partner brings a host onto Outly, their share is paid out of
-      <em>Outly's</em> commission — not the host's. The host receives exactly
-      the same amount either way. You can see this in the Host calculator by
-      ticking the promoter box.
-    </div>
-
-    <!-- ====== DEV: COMPETITOR COMPARISON ==================================
-         Figures below are the published headline rates recorded in
-         Outly_Pricing.xlsx (Competitors sheet). Third-party pricing changes
-         often, and this is a public claim about named companies:
-         RE-VERIFY EVERY ROW against each provider's live pricing page
-         before this goes live, and re-check periodically after.
-         =================================================================== -->
-    <div class="calc-sec">
-      <div class="pricing-head">
-        <h2 class="title reveal">How that compares</h2>
-        <p class="sub reveal d1">What a host keeps on a <span id="cmpPriceLabel">£20</span> ticket, on published headline rates.</p>
-      </div>
-      <div class="cmp-wrap reveal d1">
-        <table class="cmp">
-          <thead>
-            <tr>
-              <th scope="col">Platform</th>
-              <th scope="col">Headline fee</th>
-              <th scope="col">Host keeps</th>
-              <th scope="col">Customer pays</th>
-            </tr>
-          </thead>
-          <tbody id="cmpBody"></tbody>
-        </table>
-      </div>
-      <p class="calc-hint reveal" id="cmpNote"></p>
+      <strong>No upfront cost, and processing is on us.</strong> There's nothing
+      to pay to list an event, no monthly fee and no minimum. Card and payment
+      processing charges are covered by Outly rather than deducted from you.
     </div>
   </div>
 </section>

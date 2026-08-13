@@ -3,44 +3,49 @@
    ============================================================
 
    ┌──────────────────────────────────────────────────────────┐
-   │  DEV: EVERY RATE ON THIS PAGE IS IN THE PRICING BLOCK    │
-   │  DIRECTLY BELOW. Change it there and the whole page —    │
-   │  both calculators, the pricing split cards and the        │
-   │  comparison table — updates. Do not hard-code rates       │
-   │  anywhere else.                                           │
+   │  DEV: EVERY RATE IS IN THE PRICING BLOCK BELOW.          │
+   │  Change it there and the whole page updates — both       │
+   │  calculators and the pricing cards. Never hard-code a    │
+   │  rate anywhere else.                                     │
    └──────────────────────────────────────────────────────────┘
 
-   ⚠️  UNRESOLVED: the source documents disagree with each other.
-       See DEV_NOTES.md §6.10. The values below follow the two
-       calculator prototypes (outlyhostcalculatorv3 /
-       outlypromotercalculatorv2), which are the most recent
-       artefacts. Confirm before publishing.
+   Model confirmed against Outly_Pricing.xlsx (GBP/USD summary blocks):
 
-   No charting library — the bar charts are drawn as inline SVG
-   below, so this page keeps the site's zero-external-JS property
-   and works under the strict CSP.
+     HOST pays      3% + £1.00 (GBP) / 3% + $1.50 (USD)  per ticket
+                    → deducted from the host's ticket revenue
+     CUSTOMER pays  10% + £1.50 (GBP) / 10% + $2.50 (USD) per ticket
+                    → added on top of the host's ticket price
+     PROMOTER earns £1.00 (GBP) / $1.50 (USD) flat per ticket
+                    → for 12 months from the host joining
+
+   Verified: £5 ticket, 30 attendees → host keeps £3.85, customer pays
+   £7.00, promoter earns £30/event. $10 ticket → host keeps $8.20,
+   customer pays $13.50, promoter earns $45/event.
+
+   NOTE ON DISCLOSURE: this page deliberately does NOT show Outly's own
+   revenue. Hosts see what they keep; promoters see what they earn.
+   Don't add an "Outly keeps" line.
+
+   No charting library — bars are inline SVG (drawBars), so the site keeps
+   its zero-external-JS property and the strict CSP needs no change.
 */
 (function () {
   'use strict';
 
   /* ===== THE ONLY PLACE RATES ARE DEFINED ===== */
   var PRICING = {
-    hostShare:        0.90,   // host keeps this share of their ticket price
-    outlyCommission:  0.10,   // Outly's share of the ticket price
-    promoterShare:    0.05,   // promoter's share — taken OUT of Outly's commission
-    buyerFee:         { GBP: 2.00, USD: 2.00 },   // flat, added on top of the ticket price
-    promoterTrailMonths: 24,  // how long a promoter earns on a host they introduced
-  };
+    /* Host side — deducted from the host's ticket revenue */
+    hostPct:  0.03,
+    hostFlat: { GBP: 1.00, USD: 1.50 },
 
-  /* Published headline rates for the comparison table.
-     pct = % of ticket price, flat = fixed amount per ticket.
-     ⚠️ Re-verify against each provider's live pricing page before launch. */
-  var COMPETITORS = [
-    { name: 'Eventbrite',  pct: 0.037, flat: 1.79 },
-    { name: 'TicketSauce', pct: 0.03,  flat: 0.99 },
-    { name: 'FairHarbor',  pct: 0.06,  flat: null, note: '6% + fee' },
-    { name: 'eTix',        pct: null,  flat: null, note: 'Not published' },
-  ];
+    /* Customer side — added on top of the host's ticket price */
+    customerPct:  0.10,
+    customerFlat: { GBP: 1.50, USD: 2.50 },
+
+    /* Promoter — flat amount per ticket sold by a host they introduced */
+    promoterPerTicket:   { GBP: 1.00, USD: 1.50 },
+    promoterTrailMonths: 12,
+  };
 
   /* ===== helpers ===== */
   var $ = function (id) { return document.getElementById(id); };
@@ -57,28 +62,31 @@
     if (v >= 1000)    return sym + Math.round(v / 1000) + 'k';
     return sym + Math.round(v);
   }
-  function pct(x) { return Math.round(x * 100) + '%'; }
-  function setText(id, txt) { var el = $(id); if (el) el.textContent = txt; }
+  function pct(x) { return (Math.round(x * 1000) / 10) + '%'; }
+  function setText(id, t) { var el = $(id); if (el) el.textContent = t; }
 
-  /* ===== inline SVG bar chart (no library) ===== */
+  /* Fee helpers — single source of truth for the arithmetic */
+  function hostFee(price, cur)     { return price * PRICING.hostPct + PRICING.hostFlat[cur]; }
+  function hostReceives(price, cur){ return price - hostFee(price, cur); }
+  function customerFee(price, cur) { return price * PRICING.customerPct + PRICING.customerFlat[cur]; }
+  function customerPays(price, cur){ return price + customerFee(price, cur); }
+  function feeLabel(p, flat, sym)  { return pct(p) + ' + ' + money2(sym, flat); }
+
+  /* ===== inline SVG bar chart ===== */
   function drawBars(svgId, labels, values, sym, cssClass) {
     var svg = $(svgId);
     if (!svg) return;
     var W = 720, H = 240, padL = 8, padR = 8, padT = 24, padB = 26;
     var innerW = W - padL - padR, innerH = H - padT - padB;
     var max = Math.max.apply(null, values.concat([1]));
-    var n = values.length;
-    var slot = innerW / n, bw = Math.min(slot * 0.6, 46);
+    var slot = innerW / values.length, bw = Math.min(slot * 0.6, 46);
     var parts = [];
-
-    /* gridlines at 0 / 50 / 100% */
     [0, 0.5, 1].forEach(function (f) {
       var y = padT + innerH - innerH * f;
       parts.push('<line class="bar-grid" x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '"/>');
     });
-
     values.forEach(function (v, i) {
-      var h = max > 0 ? (v / max) * innerH : 0;
+      var h = max > 0 ? (Math.max(0, v) / max) * innerH : 0;
       var x = padL + slot * i + (slot - bw) / 2;
       var y = padT + innerH - h;
       parts.push('<rect class="' + cssClass + '" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) +
@@ -92,46 +100,45 @@
   }
 
   /* ========================================================
-     HOST CALCULATOR
+     HOST
      ======================================================== */
   function updateHost() {
     var cur = $('h-currency').value;
     var sym = symbolFor(cur);
-    var fee = PRICING.buyerFee[cur];
-
     ['h-sym1', 'h-sym2', 'h-sym3'].forEach(function (id) { setText(id, sym); });
 
     var price     = num('h-price', 20);
     var attendees = num('h-attendees', 30);
     var epm       = Math.max(1, num('h-epm', 2));
     var venue     = num('h-venue', 0);
-    var viaPromo  = $('h-promoter').checked;
 
-    var custPays   = price + fee;
-    var hostPer    = price * PRICING.hostShare;
-    var promoterCut = viaPromo ? price * PRICING.promoterShare : 0;
-    var outlyKeeps = price * PRICING.outlyCommission + fee;   // fee always stays with Outly
+    var hFee    = hostFee(price, cur);
+    var hNet    = hostReceives(price, cur);
+    var cPays   = customerPays(price, cur);
 
-    setText('h-custpays', custPays.toFixed(2));
-    setText('h-feehint', 'Your price + ' + money2(sym, fee) + ' booking fee');
+    setText('h-custpays', cPays.toFixed(2));
+    setText('h-feehint', 'Your price + ' + feeLabel(PRICING.customerPct, PRICING.customerFlat[cur], sym) + ' booking fee');
 
     setText('hA1', money2(sym, price));
-    setText('hA2', '+' + money2(sym, fee));
-    setText('hA3', money2(sym, custPays));
-    setText('hA4l', 'Outly keeps (' + pct(PRICING.outlyCommission) + ' + fee)');
-    setText('hA4', money2(sym, outlyKeeps));
-    setText('hA6l', 'You receive (' + pct(PRICING.hostShare) + ')');
-    setText('hA6', money2(sym, hostPer));
+    setText('hA2l', 'Platform fee (' + feeLabel(PRICING.hostPct, PRICING.hostFlat[cur], sym) + ')');
+    setText('hA2', '−' + money2(sym, hFee));
+    setText('hA3l', 'You receive');
+    setText('hA3', money2(sym, hNet));
+    setText('hA4', money2(sym, cPays));
 
-    /* promoter row only shown when relevant */
-    $('hA5row').hidden = !viaPromo;
-    if (viaPromo) setText('hA5', money2(sym, promoterCut));
+    /* Warn rather than show nonsense if the ticket is priced below the flat fee */
+    var viable = hNet > 0;
+    $('hWarn').hidden = viable;
+    if (!viable) {
+      setText('hWarn', 'At ' + money2(sym, price) + ' a ticket the flat fee is larger than your revenue. ' +
+              'Price above about ' + money2(sym, PRICING.hostFlat[cur] / (1 - PRICING.hostPct)) + ' for this to work.');
+    }
 
-    var revPerEvent = hostPer * attendees;
-    var netPerEvent = revPerEvent - venue;
-    var revPerMonth = revPerEvent * epm;
+    var revPerEvent   = Math.max(0, hNet) * attendees;
+    var netPerEvent   = revPerEvent - venue;
+    var revPerMonth   = revPerEvent * epm;
     var venuePerMonth = venue * epm;
-    var netPerMonth = revPerMonth - venuePerMonth;
+    var netPerMonth   = revPerMonth - venuePerMonth;
 
     setText('hB1', Math.round(attendees).toLocaleString() + ' tickets');
     setText('hB2', money(sym, revPerEvent));
@@ -141,7 +148,7 @@
     setText('hB6', money(sym, netPerMonth));
 
     setText('hSEvent', money(sym, revPerEvent));
-    setText('hSEventSub', Math.round(attendees) + ' tickets × ' + money2(sym, hostPer));
+    setText('hSEventSub', Math.round(attendees) + ' tickets × ' + money2(sym, Math.max(0, hNet)));
     setText('hSMonth', money(sym, revPerMonth));
     setText('hSMonthSub', epm + (epm > 1 ? ' events × ' : ' event × ') + money(sym, revPerEvent));
     setText('hSNet', money(sym, netPerMonth));
@@ -156,25 +163,26 @@
     var pts = [1, 2, 3, 4, 6, 8, 10, 15, 20];
     drawBars('hChart',
       pts.map(function (e) { return e + (e === 1 ? ' event' : ' events'); }),
-      pts.map(function (e) { return Math.max(0, (revPerEvent - venue) * e); }),
+      pts.map(function (e) { return (revPerEvent - venue) * e; }),
       sym, 'bar-fill2');
 
     setText('hNote',
-      'You keep ' + pct(PRICING.hostShare) + ' of every ticket at the price you set. Outly adds a flat ' +
-      money2(sym, fee) + ' booking fee on top — that is the only fee your customer sees, and it never comes out of your price. ' +
-      'Payment processing is absorbed by Outly. Venue cost is your own estimate. ' +
-      'Figures are estimates for planning, not a guarantee of earnings.');
+      'You set your ticket price. A platform fee of ' + feeLabel(PRICING.hostPct, PRICING.hostFlat[cur], sym) +
+      ' per ticket comes out of your side, and a booking fee of ' +
+      feeLabel(PRICING.customerPct, PRICING.customerFlat[cur], sym) +
+      ' is added to what the customer pays. Payment processing is covered by Outly. ' +
+      'If a promoter introduced you to Outly, their reward is paid separately and does not change what you receive. ' +
+      'Venue cost is your own estimate. These are planning estimates, not a guarantee of earnings.');
   }
 
   /* ========================================================
-     PROMOTER CALCULATOR
+     PROMOTER
      ======================================================== */
   function updatePromoter() {
     var cur = $('p-currency').value;
     var sym = symbolFor(cur);
-    var fee = PRICING.buyerFee[cur];
     var months = PRICING.promoterTrailMonths;
-
+    var perTicket = PRICING.promoterPerTicket[cur];
     ['p-sym1', 'p-sym2'].forEach(function (id) { setText(id, sym); });
 
     var hosts     = Math.max(1, num('p-hosts', 10));
@@ -182,45 +190,40 @@
     var attendees = num('p-attendees', 30);
     var epm       = Math.max(1, num('p-epm', 1));
 
-    var commPerTicket = price * PRICING.promoterShare;
-    var custPays      = price + fee;
-    var hostPer       = price * PRICING.hostShare;
-    var outlyKeeps    = price * (PRICING.outlyCommission - PRICING.promoterShare) + fee;
-
-    setText('p-comm', commPerTicket.toFixed(2));
-    setText('p-commhint', pct(PRICING.promoterShare) + ' of the ticket price — auto-calculated');
+    setText('p-comm', perTicket.toFixed(2));
+    setText('p-commhint', 'Flat ' + money2(sym, perTicket) + ' per ticket, whatever the ticket price');
 
     setText('pA1', money2(sym, price));
-    setText('pA2', money2(sym, custPays));
-    setText('pA3l', 'Host receives (' + pct(PRICING.hostShare) + ', unchanged)');
-    setText('pA3', money2(sym, hostPer));
-    setText('pA4', money2(sym, outlyKeeps));
-    setText('pA5l', 'You earn (' + pct(PRICING.promoterShare) + ')');
-    setText('pA5', money2(sym, commPerTicket));
+    setText('pA2', money2(sym, customerPays(price, cur)));
+    setText('pA3', money2(sym, hostReceives(price, cur)));
+    setText('pA4', money2(sym, perTicket));
 
     var ticketsPerHostMonth = attendees * epm;
-    var perHostMonth = commPerTicket * ticketsPerHostMonth;
-    var perHostTrail = perHostMonth * months;
+    var perHostMonth  = perTicket * ticketsPerHostMonth;
+    var perHostTrail  = perHostMonth * months;
     var allHostsMonth = perHostMonth * hosts;
-    var trailTotal = allHostsMonth * months;
+    var trailTotal    = allHostsMonth * months;
 
     setText('pB1', Math.round(ticketsPerHostMonth).toLocaleString() + ' tickets');
-    setText('pB2', money2(sym, commPerTicket));
+    setText('pB2', money2(sym, perTicket));
     setText('pB3', money(sym, perHostMonth));
     setText('pB4', months + ' months');
     setText('pB5', money(sym, perHostTrail));
 
     setText('pSMonth', money(sym, allHostsMonth));
     setText('pSMonthSub', Math.round(hosts) + ' hosts × ' + money(sym, perHostMonth));
-    setText('pSY1', money(sym, allHostsMonth * Math.min(12, months)));
-    setText('pSY2', money(sym, allHostsMonth * Math.max(0, Math.min(12, months - 12))));
+    setText('pSTrailLbl', 'Full ' + months + '-month total');
+    setText('pSTrail', money(sym, trailTotal));
+    setText('pSPerHostLbl', 'Value of one host');
+    setText('pSPerHost', money(sym, perHostTrail));
 
-    setText('pBannerTag', 'Full ' + months + '-month trail');
+    setText('pBannerTag', 'Full ' + months + '-month earnings');
     setText('pTotal', moneyK(sym, trailTotal));
-    setText('pTotalNote', Math.round(hosts) + ' hosts · ' + months + ' months · ' + money2(sym, price) + ' ticket');
+    setText('pTotalNote', Math.round(hosts) + ' hosts · ' + months + ' months · ' +
+            Math.round(ticketsPerHostMonth) + ' tickets per host per month');
     setText('pPerHost', money(sym, perHostTrail));
     setText('pTickets', Math.round(ticketsPerHostMonth * hosts * months).toLocaleString());
-    setText('pPerTicket', money2(sym, commPerTicket));
+    setText('pPerTicket', money2(sym, perTicket));
 
     var pts = [1, 2, 5, 10, 20, 30, 50, 75, 100];
     drawBars('pChart',
@@ -229,68 +232,29 @@
       sym, 'bar-fill');
 
     setText('pNote',
-      'You earn ' + pct(PRICING.promoterShare) + ' of the ticket price on every ticket sold by hosts you personally introduce, for ' +
-      months + ' months from the point they join. Your share comes out of Outly’s commission — the host still receives ' +
-      pct(PRICING.hostShare) + ' either way. The flat booking fee always stays with Outly. The trail ends after month ' +
-      months + ', so keep introducing hosts to keep earning. ' +
-      'Figures are estimates for planning, not a guarantee of earnings.');
+      'You earn a flat ' + money2(sym, perTicket) + ' on every ticket sold by hosts you personally introduce, for ' +
+      months + ' months from the point each host joins. It is the same ' + money2(sym, perTicket) +
+      ' whatever the host charges. Your reward does not come out of the host — they receive exactly the same either way. ' +
+      'Earnings stop after month ' + months + ' for that host, so keep introducing new ones. ' +
+      'These are planning estimates, not a guarantee of earnings.');
   }
 
   /* ========================================================
-     PRICING SPLIT + COMPARISON TABLE
+     PRICING CARDS (host-facing; no Outly revenue shown)
      ======================================================== */
   function updatePricing() {
-    /* Use whichever calculator is on screen so the table tracks the user's price */
-    var hostTabActive = $('tab-host').getAttribute('aria-selected') === 'true';
-    var cur   = hostTabActive ? $('h-currency').value : $('p-currency').value;
-    var price = hostTabActive ? num('h-price', 20) : num('p-price', 20);
+    var hostTab = $('tab-host').getAttribute('aria-selected') === 'true';
+    var cur   = hostTab ? $('h-currency').value : $('p-currency').value;
+    var price = hostTab ? num('h-price', 20) : num('p-price', 20);
     var sym   = symbolFor(cur);
-    var fee   = PRICING.buyerFee[cur];
 
-    setText('pxHost',  pct(PRICING.hostShare));
-    setText('pxOutly', pct(PRICING.outlyCommission));
-    setText('pxFee',   '+' + sym + fee.toFixed(fee % 1 ? 2 : 0));
-    setText('cmpPriceLabel', money2(sym, price));
-
-    var rows = [{
-      name: 'Outly',
-      us: true,
-      feeLabel: pct(PRICING.outlyCommission) + ' + ' + money2(sym, fee) + ' flat',
-      keeps: price * PRICING.hostShare,
-      pays: price + fee,
-    }];
-
-    COMPETITORS.forEach(function (c) {
-      if (c.pct === null) {
-        rows.push({ name: c.name, feeLabel: c.note || 'Not published', keeps: null, pays: null });
-        return;
-      }
-      var flat = c.flat === null ? null : c.flat;
-      var label = c.note || (Math.round(c.pct * 1000) / 10) + '% + ' + sym + (flat === null ? '?' : flat.toFixed(2));
-      if (flat === null) {
-        rows.push({ name: c.name, feeLabel: label, keeps: null, pays: null });
-        return;
-      }
-      /* Competitor fees modelled as passed to the buyer, which is their default:
-         the host keeps their full face price and the customer pays the fee. */
-      var cFee = price * c.pct + flat;
-      rows.push({ name: c.name, feeLabel: label, keeps: price, pays: price + cFee });
-    });
-
-    var body = $('cmpBody');
-    body.innerHTML = rows.map(function (r) {
-      return '<tr' + (r.us ? ' class="cmp-us"' : '') + '>' +
-        '<td>' + r.name + '</td>' +
-        '<td>' + r.feeLabel + '</td>' +
-        '<td class="num">' + (r.keeps === null ? '—' : money2(sym, r.keeps)) + '</td>' +
-        '<td class="num">' + (r.pays  === null ? '—' : money2(sym, r.pays))  + '</td>' +
-        '</tr>';
-    }).join('');
-
-    setText('cmpNote',
-      'Competitor rows use published headline rates with fees passed to the buyer, which is their standard setting. ' +
-      'Third-party pricing changes — verify before relying on this. Outly’s row shows the host keeping ' +
-      pct(PRICING.hostShare) + ' of their own price with the booking fee added on top.');
+    setText('pxKeepFee',  feeLabel(PRICING.hostPct, PRICING.hostFlat[cur], sym) + ' per ticket');
+    setText('pxKeepVal',  money2(sym, Math.max(0, hostReceives(price, cur))));
+    setText('pxPaysFee',  feeLabel(PRICING.customerPct, PRICING.customerFlat[cur], sym) + ' on top');
+    setText('pxPaysVal',  money2(sym, customerPays(price, cur)));
+    setText('pxPromoVal', money2(sym, PRICING.promoterPerTicket[cur]));
+    setText('pxPromoFee', 'per ticket, for ' + PRICING.promoterTrailMonths + ' months');
+    setText('pxExample',  'Based on the ' + money2(sym, price) + ' ticket price in the calculator above.');
   }
 
   /* ========================================================
@@ -302,17 +266,15 @@
     $('tab-promoter').setAttribute('aria-selected', String(!isHost));
     $('panel-host').classList.toggle('active', isHost);
     $('panel-promoter').classList.toggle('active', !isHost);
-    /* charts need a real layout box to size against, so redraw on show */
     if (isHost) { updateHost(); } else { updatePromoter(); }
     updatePricing();
   }
-
   $('tab-host').addEventListener('click', function () { selectTab('host'); });
   $('tab-promoter').addEventListener('click', function () { selectTab('promoter'); });
 
-  ['h-currency','h-price','h-attendees','h-epm','h-venue','h-promoter'].forEach(function (id) {
+  ['h-currency','h-price','h-attendees','h-epm','h-venue'].forEach(function (id) {
     var el = $(id);
-    el.addEventListener(el.tagName === 'SELECT' || el.type === 'checkbox' ? 'change' : 'input', function () {
+    el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', function () {
       updateHost(); updatePricing();
     });
   });
@@ -323,15 +285,10 @@
     });
   });
 
-  /* keep the two currency pickers in step */
-  $('h-currency').addEventListener('change', function () {
-    $('p-currency').value = this.value; updatePromoter();
-  });
-  $('p-currency').addEventListener('change', function () {
-    $('h-currency').value = this.value; updateHost();
-  });
+  /* keep both currency pickers in step */
+  $('h-currency').addEventListener('change', function () { $('p-currency').value = this.value; updatePromoter(); });
+  $('p-currency').addEventListener('change', function () { $('h-currency').value = this.value; updateHost(); });
 
-  /* scroll reveal for the pricing section */
   var obs = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
@@ -339,7 +296,6 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
 
-  /* initial paint */
   updateHost();
   updatePromoter();
   updatePricing();

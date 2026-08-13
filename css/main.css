@@ -974,16 +974,6 @@ footer {
 .split-card h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 400; color: var(--frost); margin-bottom: 6px; }
 .split-card p  { font-size: 13px; line-height: 1.6; color: var(--cool-grey); }
 
-/* Comparison table */
-.cmp-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid rgba(255,255,255,0.12); }
-table.cmp { width: 100%; border-collapse: collapse; min-width: 560px; background: rgba(255,255,255,0.04); }
-table.cmp th, table.cmp td { padding: 13px 18px; text-align: left; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-table.cmp th { font-family: 'Sora', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cool-grey); background: rgba(0,0,0,0.2); }
-table.cmp td { color: var(--cool-grey); }
-table.cmp tr:last-child td { border-bottom: none; }
-table.cmp tr.cmp-us td { background: rgba(224,90,42,0.12); color: var(--frost); font-weight: 500; }
-table.cmp tr.cmp-us td:first-child { color: var(--orange); font-family: 'Sora', sans-serif; }
-table.cmp td.num { font-family: 'Sora', sans-serif; font-weight: 600; color: var(--frost); white-space: nowrap; }
 
 @media (max-width: 900px) {
   .calc-hero { padding: 120px 22px 50px; }

@@ -201,9 +201,10 @@ Teams. Same one-line change.
 below are closed.** They come straight from the strategy playbooks.
 
 1. **The compensation model is proposed, not settled.** The playbook calls
-   the three-year residual "subject to legal and economic validation" and
+   the promoter residual "subject to legal and economic validation" and
    says earnings examples must be "labelled illustrative rather than
-   promised". The page reflects that — there is a terms notice under
+   promised". Note the trail is now **12 months** (see §6.10), not the
+   three years the playbook drafted. The page reflects that — there is a terms notice under
    "What you get" and matching wording in the FAQ and the consent
    checkbox. **Don't strengthen that language into a promise** without
    sign-off.
@@ -277,65 +278,81 @@ markers, and it renders — the `.worked-example` CSS already exists, so no
 styling work. **Keep the "Illustrative only" line**; do not reword it into
 a forecast.
 
-### 6.10 ⚠️ The pricing model is not consistent across source documents
+### 6.10 Pricing model — CONFIRMED
 
-The calculator page had to pick a model. **The source files disagree**, so
-this needs resolving before `calculator.html` goes live.
+Confirmed against the GBP/USD summary blocks in `Outly_Pricing.xlsx`.
+Earlier drafts and the two calculator prototypes disagreed with this; **this
+table is the one that's right.**
 
-| | Host fee | Flat fee | Promoter | Trail |
-|---|---|---|---|---|
-| `outlyhostcalculatorv3.html` | 10% (host keeps 90%) | £2/$2 | 5% | — |
-| `outlypromotercalculatorv2.html` | 10% (host keeps 90%) | £2/$2 | 5% | **24 months** |
-| `Outly_Pricing.xlsx` final proposed structure | **3%** | **£1.50** | 5% | **36 months** |
-| `campus-partners.html` copy | — | — | — | **"up to three years"** |
+| | GBP | USD |
+|---|---|---|
+| Host platform fee | 3% + £1.00 | 3% + $1.50 |
+| Customer booking fee | 10% + £1.50 | 10% + $2.50 |
+| Promoter reward | £1.00 flat/ticket | $1.50 flat/ticket |
+| Promoter trail | 12 months | 12 months |
 
-**What I built from:** the two calculator prototypes (10% / £2 / 5% /
-24 months), since they're the most recent artefacts and were given as the
-reference. **Two live contradictions to settle:**
+The host fee is **deducted** from the host's ticket revenue; the customer fee
+is **added on top** of the ticket price. The promoter reward is a **flat
+amount per ticket, not a percentage** — the same whatever the host charges.
 
-1. **Trail length.** The promoter calculator says 24 months; the spreadsheet
-   and the Campus Partner page both say 36 months / three years. These
-   cannot both be right on a public site.
-2. **Host fee + flat fee.** 10% + £2 vs the spreadsheet's 3% + £1.50. These
-   produce very different host economics and a very different competitor
-   comparison.
+Arithmetic verified against the spreadsheet: a £5 ticket with 30 attendees
+gives the host £3.85/ticket, the customer pays £7.00, and the promoter earns
+£30/event. A $10 ticket gives the host $8.20, the customer pays $13.50, and
+the promoter earns $45/event. Both reproduce the spreadsheet's per-event and
+per-month figures exactly.
 
-**Changing it is one edit.** Every rate is in the `PRICING` object at the top
-of `js/calculator.js`:
+**Changing any of it is one edit** — the `PRICING` object at the top of
+`js/calculator.js`:
 
 ```js
 var PRICING = {
-  hostShare: 0.90, outlyCommission: 0.10, promoterShare: 0.05,
-  buyerFee: { GBP: 2.00, USD: 2.00 }, promoterTrailMonths: 24,
+  hostPct: 0.03,     hostFlat:     { GBP: 1.00, USD: 1.50 },
+  customerPct: 0.10, customerFlat: { GBP: 1.50, USD: 2.50 },
+  promoterPerTicket: { GBP: 1.00, USD: 1.50 },
+  promoterTrailMonths: 12,
 };
 ```
 
-Both calculators, the three pricing split cards and the comparison table all
-read from it. No rate is hard-coded anywhere else — please keep it that way.
+Both calculators and all three pricing cards read from it. No rate is
+hard-coded anywhere else — please keep it that way.
 
-### 6.11 Competitor comparison table is a public claim — verify it
+> **Low ticket prices break down.** Because the host fee includes a flat
+> component, a ticket priced below about £1.03 / $1.55 leaves the host with
+> nothing. The calculator detects this and shows a warning instead of a
+> negative number. If a minimum ticket price is introduced, set the input
+> `min` attributes to match.
 
-`calculator.html` ends with a table comparing Outly to Eventbrite,
-TicketSauce, FairHarbor and eTix. The figures come from the Competitors
-sheet of `Outly_Pricing.xlsx`:
+### 6.10a We do not disclose Outly's own revenue
 
-| Platform | Recorded rate |
-|---|---|
-| Eventbrite | 3.7% + $1.79 |
-| TicketSauce | 3% + $0.99 |
-| FairHarbor | 6% + fee |
-| eTix | Not published |
+Deliberate: the page shows hosts **what they keep** and promoters **what they
+earn**, and never a line for what Outly takes. Two rows and a whole
+comparison table were removed for this reason. Please don't reintroduce an
+"Outly keeps" figure without asking.
 
-Two cautions:
-- These are **named third parties** and pricing changes often.
-  **Re-verify every row against their live pricing pages before launch**,
-  and re-check periodically. There's a `DEV:` comment on the section saying so.
-- The table models competitor fees as **passed to the buyer** (their usual
-  default), so the host keeps face value and the customer pays more. If a
-  provider's default is actually to absorb fees, that row is unfair to them.
+### 6.11 The competitor comparison table was removed — read this before re-adding
 
-Competitor rows live in the `COMPETITORS` array in `js/calculator.js`.
-If in doubt, delete the table — the pricing explainer above it stands alone.
+An earlier version compared Outly to Eventbrite (3.7% + $1.79), TicketSauce
+(3% + $0.99), FairHarbor and eTix, using the Competitors sheet. **I removed
+it**, for two reasons:
+
+1. It conflicts with 6.10a — a like-for-like fee table necessarily exposes
+   the total take.
+2. **On the confirmed numbers it does not favour Outly.** At a £20 ticket
+   with fees passed to the buyer (the competitors' usual default):
+
+   | | Host keeps | Customer pays |
+   |---|---|---|
+   | Outly | £18.40 | £23.50 |
+   | Eventbrite | £20.00 | £22.53 |
+   | TicketSauce | £20.00 | £21.59 |
+
+   Outly is behind on both axes in that framing. That's a **commercial**
+   observation, not a formatting one, and worth a deliberate decision:
+   either the pricing changes, or the positioning leans on what the fee buys
+   (discovery, Pulse, matching, absorbed processing) rather than on price.
+
+If a comparison is ever re-added, re-verify every third-party rate against
+their live pricing page first — this is a public claim about named companies.
 
 ### 6.12 Calculators use no charting library
 
