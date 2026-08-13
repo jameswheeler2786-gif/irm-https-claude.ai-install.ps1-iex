@@ -831,3 +831,167 @@ footer {
 .we-note { margin-top: 14px; font-size: 11.5px; line-height: 1.6; color: var(--cool-grey); }
 
 @media (max-width: 900px) { .campus-grid--3 { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   CALCULATOR PAGE  (calculator.html)
+   All rates live in js/calculator.js -> PRICING. Nothing here.
+   ============================================================ */
+.calc-hero { background: var(--graphite); padding: 140px 48px 60px; position: relative; overflow: hidden; }
+.calc-hero-in { max-width: 980px; margin: 0 auto; position: relative; z-index: 2; }
+.calc-hero h1 { font-size: clamp(32px,4.4vw,54px); font-weight: 400; line-height: 1.08; letter-spacing: -1.6px; color: var(--frost); margin-bottom: 16px; }
+.calc-hero h1 em { font-style: normal; color: var(--orange); }
+.calc-hero-sub { font-size: 17px; line-height: 1.6; color: var(--cool-grey); max-width: 620px; }
+
+/* Tabs */
+.calc-tabs { display: flex; gap: 8px; margin-top: 30px; flex-wrap: wrap; }
+.calc-tab {
+  font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 400;
+  padding: 11px 22px; border-radius: 100px; cursor: pointer;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+  color: var(--cool-grey); transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.calc-tab:hover { color: var(--frost); border-color: rgba(255,255,255,0.35); }
+.calc-tab[aria-selected="true"] { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+.calc-body { background: var(--frost); padding: 56px 48px 90px; }
+.calc-in { max-width: 980px; margin: 0 auto; }
+.calc-panel { display: none; }
+.calc-panel.active { display: block; animation: fadeUp 0.35s ease both; }
+
+.calc-sec { margin-top: 36px; }
+.calc-sec:first-child { margin-top: 0; }
+.calc-sec-title {
+  font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+}
+.calc-sec-title::after { content: ''; flex: 1; height: 1px; background: rgba(26,58,58,0.14); }
+
+/* Inputs */
+.calc-inputs {
+  background: var(--white); border: 1px solid rgba(26,58,58,0.1);
+  border-radius: 16px; padding: 26px 30px;
+}
+.calc-input-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px 36px; }
+.calc-ig { display: flex; flex-direction: column; gap: 6px; }
+.calc-ig label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--slate); }
+.calc-ig-row { display: flex; align-items: baseline; gap: 8px; }
+.calc-prefix { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; color: var(--orange); }
+.calc-ig input, .calc-ig select {
+  font-family: 'Sora', sans-serif; font-size: 25px; font-weight: 400; color: var(--graphite);
+  border: none; border-bottom: 2px solid rgba(26,58,58,0.15);
+  padding: 3px 0; background: transparent; outline: none; width: 100%;
+  transition: border-color 0.15s;
+}
+.calc-ig select { font-size: 16px; cursor: pointer; }
+.calc-ig input:focus, .calc-ig select:focus { border-bottom-color: var(--orange); }
+.calc-derived { font-family: 'Sora', sans-serif; font-size: 25px; font-weight: 400; color: var(--success); }
+.calc-hint { font-size: 11px; color: var(--cool-grey); line-height: 1.45; }
+.calc-check { display: flex; align-items: center; gap: 9px; cursor: pointer; margin-top: 4px; }
+.calc-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.calc-check .check-box { width: 18px; height: 18px; }
+.calc-check span:last-child { font-size: 12.5px; color: var(--slate); }
+
+/* Flow boxes */
+.calc-flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.calc-flow { background: var(--white); border: 1px solid rgba(26,58,58,0.1); border-radius: 14px; overflow: hidden; }
+.calc-flow-head {
+  padding: 11px 18px; font-family: 'Sora', sans-serif; font-size: 10.5px;
+  font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  border-bottom: 1px solid rgba(26,58,58,0.1);
+  background: rgba(224,90,42,0.07); color: var(--orange);
+}
+.calc-flow-head--teal { background: rgba(21,127,122,0.07); color: var(--success); }
+.calc-row {
+  display: flex; justify-content: space-between; align-items: center; gap: 14px;
+  padding: 10px 18px; border-bottom: 1px solid rgba(26,58,58,0.06); font-size: 13px;
+}
+.calc-row:last-child { border-bottom: none; }
+.calc-row .rl { color: var(--slate); }
+.calc-row .rv { font-family: 'Sora', sans-serif; font-weight: 600; color: var(--graphite); white-space: nowrap; }
+.calc-row--cust { background: var(--frost); }
+.calc-row--cust .rl { font-weight: 700; color: var(--graphite); }
+.calc-row--you { background: rgba(224,90,42,0.07); }
+.calc-row--you .rl { color: var(--orange); font-weight: 700; }
+.calc-row--you .rv { color: var(--orange); font-size: 15px; }
+.calc-row--host { background: rgba(21,127,122,0.07); }
+.calc-row--host .rl { color: var(--success); font-weight: 700; }
+.calc-row--host .rv { color: var(--success); font-size: 15px; }
+.calc-row--muted .rv { color: var(--cool-grey); }
+
+/* Summary cards */
+.calc-sum-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 12px; }
+.calc-card {
+  background: var(--white); border: 1px solid rgba(26,58,58,0.1);
+  border-radius: 14px; padding: 20px; position: relative; overflow: hidden;
+}
+.calc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: rgba(26,58,58,0.15); }
+.calc-card--orange::before { background: var(--orange); }
+.calc-card--teal::before   { background: var(--success); }
+.calc-card--dark::before   { background: var(--graphite); }
+.calc-card .cl { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); margin-bottom: 8px; }
+.calc-card .cv { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 400; letter-spacing: -1px; line-height: 1; color: var(--graphite); }
+.calc-card--orange .cv { color: var(--orange); }
+.calc-card--teal .cv   { color: var(--success); }
+.calc-card .cs { font-size: 11px; color: var(--cool-grey); margin-top: 6px; }
+
+/* Headline banner */
+.calc-banner {
+  background: var(--graphite); border-radius: 16px; padding: 30px 34px;
+  display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap;
+}
+.calc-banner-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cool-grey); margin-bottom: 6px; }
+.calc-banner-amt { font-family: 'Sora', sans-serif; font-size: clamp(38px,5vw,54px); font-weight: 400; letter-spacing: -2.5px; color: var(--orange); line-height: 1; }
+.calc-banner-note { font-size: 12px; color: var(--cool-grey); margin-top: 8px; }
+.calc-banner-stats { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+.calc-stat { font-size: 13px; color: var(--cool-grey); }
+.calc-stat strong { color: var(--frost); font-family: 'Sora', sans-serif; font-weight: 600; }
+
+/* SVG chart (no library — see js/calculator.js) */
+.calc-chart { background: var(--white); border: 1px solid rgba(26,58,58,0.1); border-radius: 16px; padding: 22px 24px 14px; }
+.calc-chart h4 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 400; color: var(--graphite); margin-bottom: 3px; }
+.calc-chart-sub { font-size: 11.5px; color: var(--cool-grey); margin-bottom: 14px; }
+.calc-chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.bar-fill  { fill: var(--orange); }
+.bar-fill2 { fill: var(--success); }
+.bar-lbl   { font-family: 'Manrope', sans-serif; font-size: 9px; fill: #7A8E8E; }
+.bar-val   { font-family: 'Sora', sans-serif; font-size: 9.5px; font-weight: 600; fill: #0F1E1E; }
+.bar-grid  { stroke: rgba(26,58,58,0.09); stroke-width: 1; }
+
+/* Pricing strategy */
+.pricing-sec { background: var(--graphite); padding: 80px 48px; }
+.pricing-in { max-width: 980px; margin: 0 auto; }
+.pricing-sec .title { color: var(--frost); }
+.pricing-sec .sub   { color: var(--cool-grey); }
+.pricing-head { text-align: center; margin-bottom: 40px; }
+.pricing-head .title { margin: 0 auto 12px; }
+.pricing-head .sub { margin: 0 auto; max-width: 620px; }
+.split-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 28px; }
+.split-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 24px 22px; }
+.split-card--host { border-color: rgba(21,127,122,0.45); background: rgba(21,127,122,0.1); }
+.split-pct { font-family: 'Sora', sans-serif; font-size: 34px; font-weight: 400; letter-spacing: -1.5px; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+.split-card--host .split-pct { color: #3FBFB0; }
+.split-card h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 400; color: var(--frost); margin-bottom: 6px; }
+.split-card p  { font-size: 13px; line-height: 1.6; color: var(--cool-grey); }
+
+/* Comparison table */
+.cmp-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid rgba(255,255,255,0.12); }
+table.cmp { width: 100%; border-collapse: collapse; min-width: 560px; background: rgba(255,255,255,0.04); }
+table.cmp th, table.cmp td { padding: 13px 18px; text-align: left; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+table.cmp th { font-family: 'Sora', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cool-grey); background: rgba(0,0,0,0.2); }
+table.cmp td { color: var(--cool-grey); }
+table.cmp tr:last-child td { border-bottom: none; }
+table.cmp tr.cmp-us td { background: rgba(224,90,42,0.12); color: var(--frost); font-weight: 500; }
+table.cmp tr.cmp-us td:first-child { color: var(--orange); font-family: 'Sora', sans-serif; }
+table.cmp td.num { font-family: 'Sora', sans-serif; font-weight: 600; color: var(--frost); white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .calc-hero { padding: 120px 22px 50px; }
+  .calc-body, .pricing-sec { padding: 50px 22px 70px; }
+  .calc-input-grid { grid-template-columns: 1fr 1fr; }
+  .calc-flow-grid { grid-template-columns: 1fr; }
+  .calc-sum-grid, .split-grid { grid-template-columns: 1fr; }
+  .calc-banner { flex-direction: column; align-items: flex-start; }
+  .calc-banner-stats { text-align: left; }
+}
+@media (max-width: 560px) { .calc-input-grid { grid-template-columns: 1fr; } }

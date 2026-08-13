@@ -12,10 +12,12 @@ Open `index.html` in a browser and it works.
 index.html            Landing page
 signup.html           Host registration  → /signup.html
 campus-partners.html  Campus Partner recruitment → /campus-partners.html
+calculator.html       Host + Promoter earnings calculators → /calculator.html
 css/main.css          ALL styles for both pages
 js/main.js            Landing page: scroll reveal + FAQ accordion
 js/signup.js          Signup: type picker, validation, submission
 js/campus-partners.js Campus Partner: reveal, FAQ, application form
+js/calculator.js      Calculators — ALL PRICING RATES LIVE HERE
 assets/logos/
   logo-dark-bg.svg    THE logo — used by nav + footer on both pages
   logo-light-bg.svg   Spare, for light backgrounds. Not currently used.
@@ -274,6 +276,78 @@ Once the rate is signed off, fill in the four numbers, delete the comment
 markers, and it renders — the `.worked-example` CSS already exists, so no
 styling work. **Keep the "Illustrative only" line**; do not reword it into
 a forecast.
+
+### 6.10 ⚠️ The pricing model is not consistent across source documents
+
+The calculator page had to pick a model. **The source files disagree**, so
+this needs resolving before `calculator.html` goes live.
+
+| | Host fee | Flat fee | Promoter | Trail |
+|---|---|---|---|---|
+| `outlyhostcalculatorv3.html` | 10% (host keeps 90%) | £2/$2 | 5% | — |
+| `outlypromotercalculatorv2.html` | 10% (host keeps 90%) | £2/$2 | 5% | **24 months** |
+| `Outly_Pricing.xlsx` final proposed structure | **3%** | **£1.50** | 5% | **36 months** |
+| `campus-partners.html` copy | — | — | — | **"up to three years"** |
+
+**What I built from:** the two calculator prototypes (10% / £2 / 5% /
+24 months), since they're the most recent artefacts and were given as the
+reference. **Two live contradictions to settle:**
+
+1. **Trail length.** The promoter calculator says 24 months; the spreadsheet
+   and the Campus Partner page both say 36 months / three years. These
+   cannot both be right on a public site.
+2. **Host fee + flat fee.** 10% + £2 vs the spreadsheet's 3% + £1.50. These
+   produce very different host economics and a very different competitor
+   comparison.
+
+**Changing it is one edit.** Every rate is in the `PRICING` object at the top
+of `js/calculator.js`:
+
+```js
+var PRICING = {
+  hostShare: 0.90, outlyCommission: 0.10, promoterShare: 0.05,
+  buyerFee: { GBP: 2.00, USD: 2.00 }, promoterTrailMonths: 24,
+};
+```
+
+Both calculators, the three pricing split cards and the comparison table all
+read from it. No rate is hard-coded anywhere else — please keep it that way.
+
+### 6.11 Competitor comparison table is a public claim — verify it
+
+`calculator.html` ends with a table comparing Outly to Eventbrite,
+TicketSauce, FairHarbor and eTix. The figures come from the Competitors
+sheet of `Outly_Pricing.xlsx`:
+
+| Platform | Recorded rate |
+|---|---|
+| Eventbrite | 3.7% + $1.79 |
+| TicketSauce | 3% + $0.99 |
+| FairHarbor | 6% + fee |
+| eTix | Not published |
+
+Two cautions:
+- These are **named third parties** and pricing changes often.
+  **Re-verify every row against their live pricing pages before launch**,
+  and re-check periodically. There's a `DEV:` comment on the section saying so.
+- The table models competitor fees as **passed to the buyer** (their usual
+  default), so the host keeps face value and the customer pays more. If a
+  provider's default is actually to absorb fees, that row is unfair to them.
+
+Competitor rows live in the `COMPETITORS` array in `js/calculator.js`.
+If in doubt, delete the table — the pricing explainer above it stands alone.
+
+### 6.12 Calculators use no charting library
+
+The two prototypes loaded **Chart.js from a CDN**. I did not carry that over.
+The bar charts are drawn as inline SVG by `drawBars()` in
+`js/calculator.js` (~30 lines), which means:
+- the site keeps its **zero-external-JS** property,
+- the strict CSP in §7 needs **no `script-src` change**,
+- and there's no repeat of the CDN/SRI failure that previously broke the globe.
+
+If you ever do want a charting library, self-host it under `/js/vendor/`
+rather than adding a CDN host to the CSP.
 
 ### 6.2 Dead links
 | File | What | Currently |

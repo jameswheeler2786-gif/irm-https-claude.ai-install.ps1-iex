@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Earnings Calculator — Outly</title>
+  <meta name="description" content="Work out what you'd take home hosting events on Outly, or what you'd earn as a promoter signing hosts up. Plus a plain breakdown of how Outly's pricing works.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <!-- ====== DEV: LOGO ======================================================
+       Swap the logo by replacing ONE file:  assets/logos/logo-dark-bg.svg
+       (keep the filename). Size is set in css/main.css via --logo-size.
+       ================================================================== -->
+  <a href="/index.html" class="logo">
+    <img class="logo-mark" src="/assets/logos/logo-dark-bg.svg" alt="Outly logo">
+    <div class="logo-wordmark">
+      <span class="logo-text">Outly</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="#pricing">How pricing works</a></li>
+    <li><a href="/campus-partners.html">Campus Partners</a></li>
+    <li><a href="/signup.html" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     HERO + TABS
+     ============================================================ -->
+<header class="calc-hero">
+  <div class="hero-bg1" aria-hidden="true"></div>
+  <div class="calc-hero-in">
+    <div class="hero-pill">Earnings calculator</div>
+    <h1>See what you'd <em>actually take home</em></h1>
+    <p class="calc-hero-sub">Set your own numbers. No sign-up, nothing saved — this runs entirely in your browser.</p>
+
+    <div class="calc-tabs" role="tablist" aria-label="Calculator type">
+      <button class="calc-tab" id="tab-host" role="tab" aria-selected="true" aria-controls="panel-host" type="button">I run events (Host)</button>
+      <button class="calc-tab" id="tab-promoter" role="tab" aria-selected="false" aria-controls="panel-promoter" type="button">I sign up hosts (Promoter)</button>
+    </div>
+  </div>
+</header>
+
+<div class="calc-body">
+  <div class="calc-in">
+
+    <!-- ========================================================
+         HOST PANEL
+         ======================================================== -->
+    <div class="calc-panel active" id="panel-host" role="tabpanel" aria-labelledby="tab-host">
+
+      <div class="calc-sec">
+        <div class="calc-sec-title">Your event assumptions</div>
+        <div class="calc-inputs">
+          <div class="calc-input-grid">
+            <div class="calc-ig">
+              <label for="h-currency">Currency</label>
+              <select id="h-currency">
+                <option value="GBP">£ GBP — London</option>
+                <option value="USD">$ USD — Los Angeles</option>
+              </select>
+              <span class="calc-hint">Switches every figure on the page</span>
+            </div>
+            <div class="calc-ig">
+              <label for="h-price">Your ticket price</label>
+              <div class="calc-ig-row">
+                <span class="calc-prefix" id="h-sym1">£</span>
+                <input type="number" id="h-price" value="20" min="0" max="1000" step="1">
+              </div>
+              <span class="calc-hint">What you charge per ticket</span>
+            </div>
+            <div class="calc-ig">
+              <label for="h-attendees">Attendees per event</label>
+              <input type="number" id="h-attendees" value="30" min="1" max="5000" step="1">
+              <span class="calc-hint">Tickets you expect to sell</span>
+            </div>
+            <div class="calc-ig">
+              <label for="h-epm">Events per month</label>
+              <input type="number" id="h-epm" value="2" min="1" max="60" step="1">
+              <span class="calc-hint">How often you run them</span>
+            </div>
+            <div class="calc-ig">
+              <label for="h-venue">Venue cost per event</label>
+              <div class="calc-ig-row">
+                <span class="calc-prefix" id="h-sym2">£</span>
+                <input type="number" id="h-venue" value="0" min="0" max="100000" step="10">
+              </div>
+              <span class="calc-hint">Your own cost — optional</span>
+            </div>
+            <div class="calc-ig">
+              <label>Customer pays</label>
+              <div class="calc-ig-row">
+                <span class="calc-prefix" id="h-sym3">£</span>
+                <span class="calc-derived" id="h-custpays">22.00</span>
+              </div>
+              <span class="calc-hint" id="h-feehint">Your price + booking fee</span>
+            </div>
+          </div>
+
+          <label class="calc-check" for="h-promoter">
+            <input type="checkbox" id="h-promoter">
+            <span class="check-box" aria-hidden="true"></span>
+            <span>This event was brought to Outly by a promoter (changes Outly's cut, not yours)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="calc-sec">
+        <div class="calc-sec-title">Per ticket &amp; per event</div>
+        <div class="calc-flow-grid">
+          <div class="calc-flow">
+            <div class="calc-flow-head calc-flow-head--teal">Per ticket</div>
+            <div class="calc-row"><span class="rl">Your ticket price</span><span class="rv" id="hA1">—</span></div>
+            <div class="calc-row"><span class="rl">Booking fee (added on top)</span><span class="rv" id="hA2">—</span></div>
+            <div class="calc-row calc-row--cust"><span class="rl">Customer pays</span><span class="rv" id="hA3">—</span></div>
+            <div class="calc-row"><span class="rl" id="hA4l">Outly keeps</span><span class="rv" id="hA4">—</span></div>
+            <div class="calc-row calc-row--muted" id="hA5row"><span class="rl">of which, promoter</span><span class="rv" id="hA5">—</span></div>
+            <div class="calc-row calc-row--host"><span class="rl" id="hA6l">You receive</span><span class="rv" id="hA6">—</span></div>
+          </div>
+          <div class="calc-flow">
+            <div class="calc-flow-head">Per event</div>
+            <div class="calc-row"><span class="rl">Tickets sold</span><span class="rv" id="hB1">—</span></div>
+            <div class="calc-row"><span class="rl">Your ticket revenue</span><span class="rv" id="hB2">—</span></div>
+            <div class="calc-row"><span class="rl">Venue cost</span><span class="rv" id="hB3">—</span></div>
+            <div class="calc-row calc-row--host"><span class="rl">Net per event</span><span class="rv" id="hB4">—</span></div>
+            <div class="calc-row"><span class="rl">Events per month</span><span class="rv" id="hB5">—</span></div>
+            <div class="calc-row calc-row--host"><span class="rl">Net per month</span><span class="rv" id="hB6">—</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-sec">
+        <div class="calc-sec-title">Your earnings</div>
+        <div class="calc-sum-grid">
+          <div class="calc-card calc-card--teal">
+            <div class="cl">Per event</div><div class="cv" id="hSEvent">—</div><div class="cs" id="hSEventSub">—</div>
+          </div>
+          <div class="calc-card calc-card--orange">
+            <div class="cl">Per month (gross)</div><div class="cv" id="hSMonth">—</div><div class="cs" id="hSMonthSub">—</div>
+          </div>
+          <div class="calc-card calc-card--dark">
+            <div class="cl">Net per month</div><div class="cv" id="hSNet">—</div><div class="cs">after venue costs</div>
+          </div>
+        </div>
+        <div class="calc-banner">
+          <div>
+            <div class="calc-banner-tag">Annual net earnings</div>
+            <div class="calc-banner-amt" id="hAnnual">—</div>
+            <div class="calc-banner-note" id="hAnnualNote">—</div>
+          </div>
+          <div class="calc-banner-stats">
+            <span class="calc-stat">Gross revenue / yr <strong id="hGross">—</strong></span>
+            <span class="calc-stat">Venue costs / yr <strong id="hVenue">—</strong></span>
+            <span class="calc-stat">Tickets / yr <strong id="hTickets">—</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-sec">
+        <div class="calc-chart">
+          <h4>What if you ran more events?</h4>
+          <p class="calc-chart-sub">Net monthly profit at different event volumes</p>
+          <svg id="hChart" viewBox="0 0 720 240" role="img" aria-label="Net monthly profit by number of events"></svg>
+        </div>
+      </div>
+
+      <p class="notice" id="hNote"></p>
+    </div>
+
+    <!-- ========================================================
+         PROMOTER PANEL
+         ======================================================== -->
+    <div class="calc-panel" id="panel-promoter" role="tabpanel" aria-labelledby="tab-promoter">
+
+      <div class="calc-sec">
+        <div class="calc-sec-title">Your assumptions</div>
+        <div class="calc-inputs">
+          <div class="calc-input-grid">
+            <div class="calc-ig">
+              <label for="p-currency">Currency</label>
+              <select id="p-currency">
+                <option value="GBP">£ GBP — London</option>
+                <option value="USD">$ USD — Los Angeles</option>
+              </select>
+              <span class="calc-hint">Switches every figure on the page</span>
+            </div>
+            <div class="calc-ig">
+              <label for="p-hosts">Hosts you sign up</label>
+              <input type="number" id="p-hosts" value="10" min="1" max="10000" step="1">
+              <span class="calc-hint">Each runs events you earn from</span>
+            </div>
+            <div class="calc-ig">
+              <label for="p-price">Avg ticket price</label>
+              <div class="calc-ig-row">
+                <span class="calc-prefix" id="p-sym1">£</span>
+                <input type="number" id="p-price" value="20" min="0" max="1000" step="1">
+              </div>
+              <span class="calc-hint">Averaged across your hosts</span>
+            </div>
+            <div class="calc-ig">
+              <label for="p-attendees">Avg attendees per event</label>
+              <input type="number" id="p-attendees" value="30" min="1" max="5000" step="1">
+              <span class="calc-hint">Tickets each event sells</span>
+            </div>
+            <div class="calc-ig">
+              <label for="p-epm">Events per host / month</label>
+              <input type="number" id="p-epm" value="1" min="1" max="60" step="1">
+              <span class="calc-hint">Average across your hosts</span>
+            </div>
+            <div class="calc-ig">
+              <label>Your cut per ticket</label>
+              <div class="calc-ig-row">
+                <span class="calc-prefix" id="p-sym2">£</span>
+                <span class="calc-derived" id="p-comm">1.00</span>
+              </div>
+              <span class="calc-hint" id="p-commhint">Auto-calculated</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-sec">
+        <div class="calc-sec-title">Per ticket &amp; per host</div>
+        <div class="calc-flow-grid">
+          <div class="calc-flow">
+            <div class="calc-flow-head">Per ticket sold</div>
+            <div class="calc-row"><span class="rl">Host ticket price</span><span class="rv" id="pA1">—</span></div>
+            <div class="calc-row calc-row--cust"><span class="rl">Customer pays</span><span class="rv" id="pA2">—</span></div>
+            <div class="calc-row"><span class="rl" id="pA3l">Host receives</span><span class="rv" id="pA3">—</span></div>
+            <div class="calc-row"><span class="rl">Outly keeps</span><span class="rv" id="pA4">—</span></div>
+            <div class="calc-row calc-row--you"><span class="rl" id="pA5l">You earn</span><span class="rv" id="pA5">—</span></div>
+          </div>
+          <div class="calc-flow">
+            <div class="calc-flow-head calc-flow-head--teal">Per host, per month</div>
+            <div class="calc-row"><span class="rl">Tickets they sell</span><span class="rv" id="pB1">—</span></div>
+            <div class="calc-row"><span class="rl">Your cut per ticket</span><span class="rv" id="pB2">—</span></div>
+            <div class="calc-row calc-row--you"><span class="rl">Monthly, from one host</span><span class="rv" id="pB3">—</span></div>
+            <div class="calc-row"><span class="rl">Trail length</span><span class="rv" id="pB4">—</span></div>
+            <div class="calc-row calc-row--host"><span class="rl">Lifetime value per host</span><span class="rv" id="pB5">—</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-sec">
+        <div class="calc-sec-title">Your earnings</div>
+        <div class="calc-sum-grid">
+          <div class="calc-card calc-card--orange">
+            <div class="cl">Per month, all hosts</div><div class="cv" id="pSMonth">—</div><div class="cs" id="pSMonthSub">—</div>
+          </div>
+          <div class="calc-card calc-card--dark">
+            <div class="cl">Year 1</div><div class="cv" id="pSY1">—</div><div class="cs">months 1–12</div>
+          </div>
+          <div class="calc-card calc-card--teal">
+            <div class="cl">Year 2</div><div class="cv" id="pSY2">—</div><div class="cs">months 13–24</div>
+          </div>
+        </div>
+        <div class="calc-banner">
+          <div>
+            <div class="calc-banner-tag" id="pBannerTag">Full trail earnings</div>
+            <div class="calc-banner-amt" id="pTotal">—</div>
+            <div class="calc-banner-note" id="pTotalNote">—</div>
+          </div>
+          <div class="calc-banner-stats">
+            <span class="calc-stat">Value per host <strong id="pPerHost">—</strong></span>
+            <span class="calc-stat">Tickets earned from <strong id="pTickets">—</strong></span>
+            <span class="calc-stat">Earn per ticket <strong id="pPerTicket">—</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-sec">
+        <div class="calc-chart">
+          <h4>What if you signed up more hosts?</h4>
+          <p class="calc-chart-sub">Full trail earnings at different host counts</p>
+          <svg id="pChart" viewBox="0 0 720 240" role="img" aria-label="Trail earnings by number of hosts"></svg>
+        </div>
+      </div>
+
+      <p class="notice" id="pNote"></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     PRICING STRATEGY
+     ============================================================ -->
+<section class="pricing-sec" id="pricing">
+  <div class="pricing-in">
+    <div class="pricing-head">
+      <span class="eyebrow reveal">How pricing works</span>
+      <h2 class="title reveal">One fee. Added on top.<br><em>Never taken off your price</em></h2>
+      <p class="sub reveal d1">You set your ticket price and that's the number you're paid against. Outly's booking fee sits on top, so your pricing stays yours.</p>
+    </div>
+
+    <div class="split-grid">
+      <div class="split-card split-card--host reveal d1">
+        <div class="split-pct" id="pxHost">90%</div>
+        <h3>Goes to the host</h3>
+        <p>Of every ticket you sell at your own price. Paid out after the event.</p>
+      </div>
+      <div class="split-card reveal d2">
+        <div class="split-pct" id="pxOutly">10%</div>
+        <h3>Outly's commission</h3>
+        <p>Covers ticketing, discovery, Pulse, check-in and support. Payment processing fees come out of this, not out of you.</p>
+      </div>
+      <div class="split-card reveal d3">
+        <div class="split-pct" id="pxFee">+£2</div>
+        <h3>Flat booking fee</h3>
+        <p>Added to the customer's total, never deducted from your price. It's the only fee an attendee ever sees.</p>
+      </div>
+    </div>
+
+    <div class="notice notice--dark reveal">
+      <strong>Where a promoter's cut comes from.</strong> When a promoter or
+      Campus Partner brings a host onto Outly, their share is paid out of
+      <em>Outly's</em> commission — not the host's. The host receives exactly
+      the same amount either way. You can see this in the Host calculator by
+      ticking the promoter box.
+    </div>
+
+    <!-- ====== DEV: COMPETITOR COMPARISON ==================================
+         Figures below are the published headline rates recorded in
+         Outly_Pricing.xlsx (Competitors sheet). Third-party pricing changes
+         often, and this is a public claim about named companies:
+         RE-VERIFY EVERY ROW against each provider's live pricing page
+         before this goes live, and re-check periodically after.
+         =================================================================== -->
+    <div class="calc-sec">
+      <div class="pricing-head">
+        <h2 class="title reveal">How that compares</h2>
+        <p class="sub reveal d1">What a host keeps on a <span id="cmpPriceLabel">£20</span> ticket, on published headline rates.</p>
+      </div>
+      <div class="cmp-wrap reveal d1">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th scope="col">Platform</th>
+              <th scope="col">Headline fee</th>
+              <th scope="col">Host keeps</th>
+              <th scope="col">Customer pays</th>
+            </tr>
+          </thead>
+          <tbody id="cmpBody"></tbody>
+        </table>
+      </div>
+      <p class="calc-hint reveal" id="cmpNote"></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-left">
+    <!-- ====== DEV: LOGO (footer) — same file as the nav ================= -->
+    <a href="/index.html" class="ft-logo">
+      <img class="ft-logo-mark" src="/assets/logos/logo-dark-bg.svg" alt="Outly logo">
+      <span class="ft-logo-text">Outly</span>
+    </a>
+    <span class="ft-tag">Discover · Connect · Experience</span>
+    <span class="ft-copy">© 2026 Outly. All rights reserved.</span>
+  </div>
+  <ul class="ft-links">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/signup.html">Host with us</a></li>
+    <li><a href="/campus-partners.html">Campus Partners</a></li>
+    <li><a href="mailto:hello@outly.co">Contact</a></li>
+  </ul>
+</footer>
+
+<script src="/js/calculator.js"></script>
+</body>
+</html>
